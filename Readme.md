@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Alexander Smirnov](https://up.htmlacademy.ru/ecmascript/3/user/516117).
-* Наставник: `Неизвестно`.
+* Наставник: `У меня нет наставника`.
 
 ---
 
