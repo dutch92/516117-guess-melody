@@ -15,4 +15,23 @@ function renderScreen(n) {
   }
 }
 
-renderScreen(0);
+let nowScreen = 0;
+renderScreen(nowScreen);
+
+document.addEventListener('keyup', (event) => {
+  if(event.altKey) {
+    let direction = 0;
+    if(event.keyCode == 39) { // arrow right
+      direction = 1;
+    } else if(event.keyCode == 37) { // arrow left
+      direction = -1;
+    }
+
+    if(direction != 0) {
+      const MOD = screens.length;
+      nowScreen = (nowScreen + direction) % MOD;
+      if(nowScreen < 0) nowScreen += MOD;
+      renderScreen(nowScreen);
+    }
+  }
+});
