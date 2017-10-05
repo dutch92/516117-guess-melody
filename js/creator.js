@@ -1,5 +1,6 @@
-function getElementFromTemplate(tmpl) {
-  return document.createElement(tmpl);
-}
+export default (tmpl) => {
+  const div = document.createElement('div');
+  div.innerHTML = tmpl;
 
-export default getElementFromTemplate;
+  return div.firstChild;
+};

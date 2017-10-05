@@ -1,4 +1,8 @@
-import createElement from './creator.js';
+import renderScreen from '../renderScreen.js';
+import createElement from '../creator.js';
+import win from './resultWin.js';
+import overTime from './resultOverTime.js';
+import overTry from './resultOverTry.js';
 
 const genreElement = createElement(`<section class="main main--level main--level-genre">
   <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -78,9 +82,22 @@ const genreElement = createElement(`<section class="main main--level main--level
         <label class="genre-answer-check" for="a-4"></label>
       </div>
 
-      <button class="genre-answer-send" type="submit">Ответить</button>
+      <button class="genre-answer-send" disabled type="submit">Ответить</button>
     </form>
   </div>
 </section>`);
+
+genreElement.querySelectorAll('input[name="answer"]').forEach(el => {
+  el.onclick = (evt) => {
+
+  };
+});
+
+genreElement.querySelector('button:not([attr="disabled"]).genre-answer-send').onclick = () => {
+  const results = [win, overTime, overTry];
+  const rand = Math.floor(Math.random() * 1000) % 3;
+
+  renderScreen(results[rand]);
+}
 
 export default genreElement;

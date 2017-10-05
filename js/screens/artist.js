@@ -1,4 +1,6 @@
-import createElement from './creator.js';
+import renderScreen from '../renderScreen.js';
+import createElement from '../creator.js';
+import genre from './genre.js';
 
 const artistElement = createElement(`<section class="main main--level main--level-artist">
   <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
@@ -59,5 +61,11 @@ const artistElement = createElement(`<section class="main main--level main--leve
     </form>
   </div>
 </section>`);
+
+artistElement.querySelectorAll('label.main-answer').forEach(el => {
+  el.onclick = () => {
+    renderScreen(genre);
+  }
+});
 
 export default artistElement;
