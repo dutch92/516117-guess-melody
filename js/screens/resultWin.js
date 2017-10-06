@@ -1,3 +1,5 @@
+import renderScreen from '../renderScreen.js';
+import welcome from './welcome.js';
 import createElement from '../creator.js';
 
 const resultWinElement = createElement(`<section class="main main--result">
@@ -10,5 +12,9 @@ const resultWinElement = createElement(`<section class="main main--result">
   <span class="main-comparison">Вы заняли 2 место из 10. Это&nbsp;лучше чем у&nbsp;80%&nbsp;игроков</span>
   <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
 </section>`);
+
+resultWinElement.querySelector('.main-replay').onclick = () => {
+  renderScreen(welcome);
+};
 
 export default resultWinElement;

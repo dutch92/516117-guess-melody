@@ -87,9 +87,11 @@ const genreElement = createElement(`<section class="main main--level main--level
   </div>
 </section>`);
 
-genreElement.querySelectorAll('input[name="answer"]').forEach(el => {
+genreElement.querySelectorAll('input[name="answer"]').forEach((el, i, arr) => {
   el.onclick = (evt) => {
-
+    arr.forEach(item => item.checked = false);
+    evt.target.checked = true;
+    genreElement.querySelector('button.genre-answer-send').removeAttribute('disabled');
   };
 });
 
