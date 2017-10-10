@@ -13,8 +13,8 @@ const welcomeElement = createElement(`<section class="main main--welcome">
   </p>
 </section>`);
 
-welcomeElement.querySelector('button.main-play').onclick = () => {
+welcomeElement.querySelector(`button.main-play`).onclick = () => {
   renderScreen(artist);
-}
+};
 
 export default welcomeElement;

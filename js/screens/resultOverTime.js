@@ -10,7 +10,7 @@ const resultOverTimeElement = createElement(`<section class="main main--result">
   <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
 </section>`);
 
-resultOverTimeElement.querySelector('.main-replay').onclick = () => {
+resultOverTimeElement.querySelector(`.main-replay`).onclick = () => {
   renderScreen(welcome);
 };
 
