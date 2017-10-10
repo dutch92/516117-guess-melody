@@ -62,10 +62,10 @@ const artistElement = createElement(`<section class="main main--level main--leve
   </div>
 </section>`);
 
-artistElement.querySelectorAll('label.main-answer').forEach(el => {
+artistElement.querySelectorAll(`label.main-answer`).forEach((el) => {
   el.onclick = () => {
     renderScreen(genre);
-  }
+  };
 });
 
 export default artistElement;

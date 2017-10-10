@@ -13,7 +13,7 @@ const resultWinElement = createElement(`<section class="main main--result">
   <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
 </section>`);
 
-resultWinElement.querySelector('.main-replay').onclick = () => {
+resultWinElement.querySelector(`.main-replay`).onclick = () => {
   renderScreen(welcome);
 };
 
