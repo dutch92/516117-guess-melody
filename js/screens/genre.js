@@ -99,7 +99,7 @@ genreElement.querySelectorAll(`input[name="answer"]`).forEach((el, i, arr) => {
 
 genreElement.querySelector(`button:not([attr="disabled"]).genre-answer-send`).onclick = () => {
   const results = [win, overTime, overTry];
-  const rand = Math.floor(Math.random() * 1000) % 3;
+  const rand = Math.floor(Math.random() * 3);
 
   renderScreen(results[rand]);
 };
