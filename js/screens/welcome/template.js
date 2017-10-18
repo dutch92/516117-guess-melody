@@ -1,11 +1,9 @@
-import data from './data';
-
 const tmpl = (
   `<section class="main main--welcome">
-    <section class="logo" title="${data.gameTitle}"><h1>${data.gameTitle}</h1></section>
-    <button class="main-play" >${data.playBtnText}</button>
-    <h2 class="title main-title">${data.rulesTitle}</h2>
-    <p class="text main-text">${data.rulesText}</p>
+    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
+    <button class="main-play" >Начать игр</button>
+    <h2 class="title main-title">Правила игры</h2>
+    <p class="text main-text">Правила просты — за 5 минут ответить на все вопросы.<br>Ошибиться можно 3 раза.<br>Удачи!</p>
   </section>`
 );
 
