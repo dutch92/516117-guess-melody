@@ -33,4 +33,15 @@ const getReplayBtnTmpl = () => {
   return `<span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>`;
 }
 
+const getResultTmpl = (resultBody) => {
+  return (
+    `<section class="main main--result">
+      ${getLogoTmpl()}
+
+      ${resultBody}
+      ${getReplayBtnTmpl()}
+    </section>`
+  );
+}
+
 export {getTimerTmpl, getFailsTmpl, getLogoTmpl, getReplayBtnTmpl};
