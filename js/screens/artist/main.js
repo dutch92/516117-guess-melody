@@ -10,9 +10,7 @@ export default (state) => {
       const answer = evt.target.closest(`.js-main-answer-r`).value;
 
       checkAnswer(state, answer);
-      check(state);
+      checkState(state);
     };
   });
-}
-
-export default artistElement;
+};

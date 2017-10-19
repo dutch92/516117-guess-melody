@@ -4,4 +4,4 @@ import initialState from '../data/initialState.js';
 
 export default () => {
   render(getWelcomeScreen(initialState));
-}
+};
