@@ -14,6 +14,13 @@ const renderQuestionType = (state) => {
 };
 
 const checkState = (state) => {
+  if (state.time === 0) {
+    render(getScreenResultOverTime());
+    resetGame();
+
+    return;
+  }
+
   if (state.level < settings.QUESTIONS_COUNT) {
     renderQuestionType(state);
     state.level++;
