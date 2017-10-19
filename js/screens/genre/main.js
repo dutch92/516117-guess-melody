@@ -1,6 +1,6 @@
 import createNode from '../../utils/createNode.js';
 import getGenreTmpl from './template.js';
-import {checkState, checkAnswer} from '../../functions/check.js';
+import {checkState, checkAnswer} from '../../functions/gameCheck.js';
 
 export default (state) => {
   const genreElement = createNode(getGenreTmpl(state));

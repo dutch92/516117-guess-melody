@@ -1,6 +1,6 @@
 import createNode from '../../utils/createNode.js';
 import getArtistTmpl from './template.js';
-import {checkState, checkAnswer} from '../../functions/check.js';
+import {checkState, checkAnswer} from '../../functions/gameCheck.js';
 
 export default (state) => {
   const artistElement = createNode(getArtistTmpl(state));
