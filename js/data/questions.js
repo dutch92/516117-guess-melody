@@ -12,13 +12,13 @@ export default [
     type: `genre`,
     title: `Выберите рок треки`,
     options: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: [songs[1].name]
+    correctAnswer: [songs[3].name]
   },
   {
     type: `artist`,
     title: `Кто исполняет эту песню?`,
     songSrc: songs[2].src,
-    options: [songs[0], songs[1], songs[2]],
+    options: [songs[0], songs[2], songs[1]],
     correctAnswer: songs[2].artist
   },
   {
@@ -32,26 +32,26 @@ export default [
     title: `Кто исполняет эту песню?`,
     songSrc: songs[3].src,
     options: [songs[0], songs[1], songs[3]],
-    correctAnswer: songs[3].artist
+    correctAnswer: songs[1].artist
   },
   {
     type: `genre`,
     title: `Выберите Pop треки`,
     options: [songs[2], songs[3], songs[4], songs[5]],
-    correctAnswer: [songs[4].name]
+    correctAnswer: [songs[3].name]
   },
   {
     type: `artist`,
     title: `Кто исполняет эту песню?`,
     songSrc: songs[4].src,
     options: [songs[4], songs[5], songs[2]],
-    correctAnswer: songs[4].artist
+    correctAnswer: songs[5].artist
   },
   {
     type: `genre`,
     title: `Выберите Electronic треки`,
     options: [songs[1], songs[3], songs[2], songs[5]],
-    correctAnswer: [songs[5].name]
+    correctAnswer: [songs[3].name]
   },
   {
     type: `artist`,
@@ -64,6 +64,6 @@ export default [
     type: `genre`,
     title: `Выберите Jazz треки`,
     options: [songs[0], songs[3], songs[2], songs[5]],
-    correctAnswer: [songs[0].name]
+    correctAnswer: [songs[3].name]
   },
 ];

@@ -16,11 +16,10 @@ const renderQuestionType = (state) => {
 };
 
 const checkState = (state) => {
-  if(state.time > 0 && state.fails < settings.MAX_ATTEMPTS && state.level < settings.QUESTIONS_COUNT) {
-    renderQuestionType(state);
+  if (state.time === 0 || state.fails === settings.MAX_ATTEMPTS || state.level === settings.QUESTIONS_COUNT) {
+    render(getResultScreen(state));
   } else {
-    const resultPhrase = showResults(allScores, player); // TODO
-    render(getResultScreen('overTry', resultPhrase));
+    renderQuestionType(state);
   }
 };
 

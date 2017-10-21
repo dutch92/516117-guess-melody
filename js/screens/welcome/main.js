@@ -1,13 +1,13 @@
 import createNode from '../../utils/createNode.js';
 import tmpl from './template.js';
-import check from '../../functions/checkState.js';
+import {checkState} from '../../functions/gameCheck.js';
 
 export default (state) => {
   const node = createNode(tmpl);
   const playBtn = node.querySelector(`.main-play`);
 
   const onPlayBtnClick = () => {
-    check(state);
+    checkState(state);
   };
 
   playBtn.addEventListener(`click`, onPlayBtnClick);
