@@ -3,9 +3,7 @@ import questions from '../data/questions.js';
 import render from '../render.js';
 import getArtistScreen from '../screens/artist/main.js';
 import getGenreScreen from '../screens/genre/main.js';
-import getResultOverTimeScreen from '../screens/resultOverTime/main.js';
-import getResultOverTryScreen from '../screens/resultOverTry/main.js';
-import getResultWinScreen from '../screens/resultWin/main.js';
+import getResultScreen from '../screens/result/main.js';
 
 const renderQuestionType = (state) => {
   const question = questions[state.level];
@@ -18,14 +16,11 @@ const renderQuestionType = (state) => {
 };
 
 const checkState = (state) => {
-  if (state.time === 0) {
-    render(getResultOverTimeScreen());
-  } else if (state.fails >= settings.MAX_ATTEMPTS) {
-    render(getResultOverTryScreen());
-  } else if (state.level < settings.QUESTIONS_COUNT) {
+  if(state.time > 0 && state.fails < settings.MAX_ATTEMPTS && state.level < settings.QUESTIONS_COUNT) {
     renderQuestionType(state);
-  } else if (state.level === settings.QUESTIONS_COUNT) {
-    render(getResultWinScreen(state));
+  } else {
+    const resultPhrase = showResults(allScores, player); // TODO
+    render(getResultScreen('overTry', resultPhrase));
   }
 };
 
