@@ -6,14 +6,14 @@ const MESSAGES = {
   overTime: `Время вышло! Вы не успели отгадать все мелодии`
 };
 
-const showResults = (allScores, playersResults) => {
-  if (playersResults.time === 0) {
+const showResults = (allScores, player) => {
+  if (player.time === 0) {
     return MESSAGES.overTime;
-  } else if (playersResults.attemptsLeft === 0) {
+  } else if (player.attemptsLeft === 0) {
     return MESSAGES.attemptsOut;
   }
 
-  const currentScore = playersResults.score;
+  const currentScore = player.score;
   allScores.push(currentScore);
   let scores = allScores.slice();
   scores.sort((a, b) => {

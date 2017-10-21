@@ -2,7 +2,7 @@ import assert from 'assert';
 import {countScore, QUESTIONS_COUNT, MAX_SCORE, MIN_POINT, MAX_POINT, PENAL_POINT} from './countScore';
 
 describe(`Situation when the player answered less then ${QUESTIONS_COUNT} questions`, () => {
-  it(`Should returns -1 if the player answered 3 questions with 1 fail`, () => {
+  it(`Should return -1 if the player answered 3 questions with 1 fail`, () => {
     const answers = [
       {isCorrect: true, time: 7403},
       {isCorrect: false, time: 5230},
@@ -12,13 +12,13 @@ describe(`Situation when the player answered less then ${QUESTIONS_COUNT} questi
     assert.equal(countScore(answers, attemptsLeft), -1);
   });
 
-  it(`Should returns -1 if the player didn't answer`, () => {
+  it(`Should return -1 if the player didn't answer`, () => {
     const answers = [];
     const attemptsLeft = 4;
     assert.equal(countScore(answers, attemptsLeft), -1);
   });
 
-  it(`Should returns -1 if the player ran out of attempts before last question`, () => {
+  it(`Should return -1 if the player ran out of attempts before last question`, () => {
     const answers = [
       {isCorrect: true, time: 8450},
       {isCorrect: false, time: 3789},
@@ -33,7 +33,7 @@ describe(`Situation when the player answered less then ${QUESTIONS_COUNT} questi
     assert.equal(countScore(answers, attemptsLeft), -1);
   });
 
-  it(`Should returns -1 if the player fails 4 times in a row`, () => {
+  it(`Should return -1 if the player fails 4 times in a row`, () => {
     const answers = [
       {isCorrect: false, time: 8454},
       {isCorrect: false, time: 9547},
@@ -46,7 +46,7 @@ describe(`Situation when the player answered less then ${QUESTIONS_COUNT} questi
 });
 
 describe(`Situation when the player answered all questions`, () => {
-  it(`Should returns ${10 * MIN_POINT}, conditions: answered all the questions correctly; not quickly; without fails`, () => {
+  it(`Should return ${10 * MIN_POINT}, conditions: answered all the questions correctly; not quickly; without fails`, () => {
     const answers = [
       {isCorrect: true, time: 30333},
       {isCorrect: true, time: 30896},
@@ -63,7 +63,7 @@ describe(`Situation when the player answered all questions`, () => {
     assert.equal(countScore(answers, attemptsLeft), 10 * MIN_POINT);
   });
 
-  it(`Should returns ${7 * MIN_POINT - 3 * PENAL_POINT}, conditions: 7 correctly; 3 fails; all aren't quickly`, () => {
+  it(`Should return ${7 * MIN_POINT - 3 * PENAL_POINT}, conditions: 7 correctly; 3 fails; all aren't quickly`, () => {
     const answers = [
       {isCorrect: true, time: 30333},
       {isCorrect: true, time: 30896},
@@ -80,7 +80,7 @@ describe(`Situation when the player answered all questions`, () => {
     assert.equal(countScore(answers, attemptsLeft), 7 * MIN_POINT - 3 * PENAL_POINT);
   });
 
-  it(`Should returns -1, when the user answered all questions with 4 fails & failed last question`, () => {
+  it(`Should return -1, when the user answered all questions with 4 fails & failed last question`, () => {
     const answers = [
       {isCorrect: true, time: 30333},
       {isCorrect: true, time: 20896},
@@ -97,7 +97,7 @@ describe(`Situation when the player answered all questions`, () => {
     assert.equal(countScore(answers, attemptsLeft), -1);
   });
 
-  it(`Should returns ${MAX_SCORE}, the user answered all questions quickly without fails`, () => {
+  it(`Should return ${MAX_SCORE}, the user answered all questions quickly without fails`, () => {
     const answers = [
       {isCorrect: true, time: 3333},
       {isCorrect: true, time: 5896},
@@ -114,7 +114,7 @@ describe(`Situation when the player answered all questions`, () => {
     assert.equal(countScore(answers, attemptsLeft), MAX_SCORE);
   });
 
-  it(`Should returns ${3 * MAX_POINT + 5 * MIN_POINT - 2 * PENAL_POINT}, 3 quickly; 5 not quickly; 2 fails`, () => {
+  it(`Should return ${3 * MAX_POINT + 5 * MIN_POINT - 2 * PENAL_POINT}, 3 quickly; 5 not quickly; 2 fails`, () => {
     const answers = [
       {isCorrect: true, time: 3333},
       {isCorrect: false, time: 5896},

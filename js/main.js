@@ -1,4 +1,5 @@
-import renderScreen from './renderScreen.js';
-import welcome from './screens/welcome.js';
+import initialState from './data/initialState.js';
+import getWelcomeScreen from './screens/welcome/main.js';
+import render from './render.js';
 
-renderScreen(welcome);
+render(getWelcomeScreen(initialState));
