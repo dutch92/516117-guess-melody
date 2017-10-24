@@ -1,4 +1,4 @@
-export default (tmpl) => {
+export const createElement = (tmpl) => {
   const div = document.createElement(`div`);
   div.innerHTML = tmpl;
 
