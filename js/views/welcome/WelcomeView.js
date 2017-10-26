@@ -1,5 +1,5 @@
 import AbstractView from '../AbstractView';
-import createElement from '../../utils';
+import getLogoTmpl from '../components';
 
 export default class WelcomeView extends AbstractView {
   get template() {
@@ -13,9 +13,10 @@ export default class WelcomeView extends AbstractView {
 
   bind() {
     const button = this.element.querySelector(`button`);
+
     button.onclick = () => {
       this.onStart();
-    }
+    };
   }
 
   onStart() {

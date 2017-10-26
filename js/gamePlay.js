@@ -1,6 +1,7 @@
-import settings from '../data/settings.js';
-import questions from '../data/questions.js';
-import render from '../render.js';
+import settings from './data/settings.js';
+import questions from './data/questions.js';
+import {render} from './utils';
+import getWelcomeScreen from '../screens/welcome/main.js';
 import getArtistScreen from '../screens/artist/main.js';
 import getGenreScreen from '../screens/genre/main.js';
 import getResultScreen from '../screens/result/main.js';
@@ -43,4 +44,9 @@ const checkAnswer = (state, answer) => {
   state.level++;
 };
 
-export {checkState, checkAnswer};
+const resetGame = (state) => {
+  state.reset();
+  render(getWelcomeScreen(state));
+};
+
+export {checkState, checkAnswer, resetGame};
