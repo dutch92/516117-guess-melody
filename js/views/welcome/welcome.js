@@ -4,8 +4,7 @@ import {render} from '../../utils';
 import Timer from '../timer/timer';
 
 export default class Welcome {
-  constructor(state) {
-    this.state = state;
+  constructor() {
     this.view = new WelcomeView();
 
     this.view.onStart() = () => {
@@ -13,7 +12,8 @@ export default class Welcome {
     };
   }
 
-  init() {
+  init(state) {
+    this.state = state;
     render(this.view.element);
   }
 
@@ -23,3 +23,5 @@ export default class Welcome {
     checkState(this.state);
   }
 }
+
+export default new Welcome();

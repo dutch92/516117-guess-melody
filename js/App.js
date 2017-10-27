@@ -1,4 +1,4 @@
-import Welcome from './views/welcome/welcome';
+import welcomeScreen from './views/welcome/welcome';
 // import LevelArtist from './level-artist/level-artist.js';
 // import LevelGenre from './level-genre/level-genre.js';
 // import WinResult from './result/win-result.js';
@@ -6,7 +6,7 @@ import Welcome from './views/welcome/welcome';
 
 export default class App {
   static showWelcome(state) {
-    new Welcome(state).init();
+    welcomeScreen.init(state);
   }
 
   // static showArtist(state, question, currentPlayer) {

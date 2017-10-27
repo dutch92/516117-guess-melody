@@ -1,12 +1,13 @@
-const TIMEOUT_MESSAGE = `Время вышло`;
-
-const getTimer = (time) => {
+export default (time) => {
   return {
     value: time,
     tick() {
-      return (time === 0) ? TIMEOUT_MESSAGE : getTimer(time - 1);
+      if (this.value <= 0) {
+        return false;
+      }
+      this.value -= 1;
+
+      return true;
     }
   };
 };
-
-export {TIMEOUT_MESSAGE, getTimer};

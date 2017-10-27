@@ -1,28 +1,17 @@
-import TimerView from '.TimerView';
+import TimerView from './TimerView';
+import getTimer from '../functions/timer';
 
 export default class Timer {
   constructor(seconds) {
-    this._seconds = seconds;
-    this._view = new TimerView();
-  }
-
-  get seconds() {
-    return this._seconds;
-  }
-
-  tick() {
-    this._seconds -= 1;
-
-    this.onTick();
-
-    if (this._seconds <= 0) {
-      this.stop();
-    }
+    this.view = new TimerView();
+    this.timer = getTimer(seconds);
   }
 
   start() {
     if (!this.timerInterval) {
-      this.timerInterval = setInterval(this.tick, 1000);
+      this.timerInterval = setInterval(() => {
+        this.timer.tick();
+      }, 1000);
     }
   }
 
@@ -31,6 +20,6 @@ export default class Timer {
   }
 
   onTick() {
-    this._view.updateTime(this._seconds);
+    this.view.updateTime(this.timer.value);
   }
 }
