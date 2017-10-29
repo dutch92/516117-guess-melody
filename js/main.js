@@ -1,4 +1,3 @@
-import initialState from './data/initialState';
-import App from './App';
+import app from './App';
 
-App.showWelcome(initialState);
+app.init();

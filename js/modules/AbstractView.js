@@ -2,7 +2,7 @@ import {createElement} from '../utils';
 
 export default class AbstractView {
   get template() {
-    throw new Error(`Not allowed in Abstract view class`);
+    throw new Error(`AbstractView class doesn't implement template getter.`);
   }
 
   render() {

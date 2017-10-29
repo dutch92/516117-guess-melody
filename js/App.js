@@ -1,12 +1,18 @@
-import welcomeScreen from './views/welcome/welcome';
-// import LevelArtist from './level-artist/level-artist.js';
-// import LevelGenre from './level-genre/level-genre.js';
-// import WinResult from './result/win-result.js';
-// import FailResult from './result/fail-result.js';
+import config from './gameConfig';
+import welcome from './modules/welcome/index';
 
-export default class App {
-  static showWelcome(state) {
-    welcomeScreen.init(state);
+class App {
+  constructor() {
+    this.config = config;
+    this.container = document.querySelector(`div.app > section.main`);
+  }
+
+  init() {
+    welcome.init();
+  }
+
+  startGame() {
+
   }
 
   // static showArtist(state, question, currentPlayer) {
@@ -24,4 +30,6 @@ export default class App {
   // static showFailResult(state) {
   //   new FailResult(state).init();
   // }
-};
+}
+
+export default new App();
