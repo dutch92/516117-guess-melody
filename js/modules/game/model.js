@@ -5,7 +5,10 @@ export default class GameModel extends Observer {
     super();
 
     this.questions = questions;
-    this.currentQuestion = questions[0];
+  }
+
+  init() {
+    this.currentQuestion = null;
     this.answers = [];
   }
 

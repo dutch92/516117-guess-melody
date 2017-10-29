@@ -3,7 +3,7 @@ import GameView from './view';
 
 class GamePresenter {
   constructor(questions) {
-    this.Model = new GameModel(questions);
-    this.View = new GameView(this.Model);
+    this._model = new GameModel(questions);
+    this._view = new GameView(this._model);
   }
 }
