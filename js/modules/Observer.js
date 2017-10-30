@@ -11,8 +11,10 @@ export default class Observer {
   }
 
   fire(eventName, ...args) {
-    if (!this._listeners[eventName]) return;
+    if (!this._listeners[eventName]) {
+      return;
+    }
 
-    this._listeners[eventName].forEach(cb => cb(...args));
+    this._listeners[eventName].forEach((cb) => cb(...args));
   }
 }

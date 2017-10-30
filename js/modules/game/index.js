@@ -3,10 +3,11 @@ import GameModel from './model';
 import GameView from './view';
 import Timer from '../timer';
 import {render} from '../../utils';
-import questions from '../../data/questions';
+import countScore from '../../functions/countScore';
+import dataQuestions from '../../data/questions';
 
 class GamePresenter {
-  constructor(questions) {
+  constructor(questions = dataQuestions) {
     this._model = new GameModel(questions);
     this._view = new GameView(this._model);
     this._gameTime = 0;
@@ -20,14 +21,16 @@ class GamePresenter {
       if (mistakesCount >= app.config.MAX_ATTEMPTS) {
         return app.showResult({status: `attemptsOver`});
       }
-      this._view.updateMistakes(mistakesCount);
+      return this._view.updateMistakes(mistakesCount);
     });
     this._model.on(`nextQuestion`, (nextQuestion) => {
       this._view.updateGameContainer(nextQuestion);
     });
     this._model.on(`questionsOver`, () => {
       const fastAnswersCount = this._model.answers.reduce((count, ans) => {
-        ans.isCorrect && (ans.time <= app.config.FAST_TIME) && count++;
+        if (ans.isCorrect && ans.time <= app.config.FAST_TIME) {
+          count++;
+        }
       }, 0);
 
       app.showResult({
@@ -53,4 +56,4 @@ class GamePresenter {
   }
 }
 
-export default new GamePresenter(questions);
+export default new GamePresenter();
