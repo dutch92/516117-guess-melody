@@ -3,6 +3,7 @@ import GameModel from './model';
 import GameView from './view';
 import Timer from '../timer';
 import {render} from '../../utils';
+import questions from '../../data/questions';
 
 class GamePresenter {
   constructor(questions) {
@@ -51,3 +52,5 @@ class GamePresenter {
     this._timer.start();
   }
 }
+
+export default new GamePresenter(questions);

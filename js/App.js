@@ -1,5 +1,6 @@
 import config from './gameConfig';
-import welcome from './modules/welcome/index';
+import welcome from './modules/welcome';
+import game from './modules/game';
 
 class App {
   constructor() {
@@ -12,24 +13,12 @@ class App {
   }
 
   startGame() {
-
+    game.init();
   }
 
-  // static showArtist(state, question, currentPlayer) {
-  //   new LevelArtist(state, question, currentPlayer).init();
-  // }
-  //
-  // static showLevelGenre(state, question, currentPlayer) {
-  //   new LevelGenre(state, question, currentPlayer).init();
-  // }
-  //
-  // static showWinResult(maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers) {
-  //   new WinResult(maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers).init();
-  // }
-  //
-  // static showFailResult(state) {
-  //   new FailResult(state).init();
-  // }
+  showResult() {
+
+  }
 }
 
 export default new App();
