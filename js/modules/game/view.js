@@ -21,12 +21,12 @@ export default class GameView extends AbstractView {
     );
   }
 
-  _getMistakesHTML() {
+  _getMistakesHTML(mistakesCount) {
     const mistakeHTML = `<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`;
 
     return (
       `<div class="main-mistakes">
-        ${new Array(this._model.mistakesCount).fill(mistakeHTML).join(``)}
+        ${new Array(mistakesCount).fill(mistakeHTML).join(``)}
       </div>`
     );
   }
@@ -36,22 +36,22 @@ export default class GameView extends AbstractView {
     this._mistakesContainerElement = this.element.querySelector(`.main-mistakes`);
   }
 
-  updateMistakes() {
-    this._mistakesContainerElement.innerHTML = this._getMistakesHTML();
+  updateMistakes(mistakesCount) {
+    this._mistakesContainerElement.innerHTML = this._getMistakesHTML(mistakesCount);
   }
 
-  updateGameContainer() {
+  updateGameContainer(question) {
     const gameScreenElement = this._gameContainerElement.querySelector(`.main-wrap`);
     if (gameScreenElement) {
       this._gameContainerElement.removeChild(gameScreenElement);
     }
-    switch (this._model.currentQuestion.type) {
+    switch (question.type) {
       case `artist`:
-        this._questionTypeView = new ArtistView(this._model.currentQuestion);
+        this._questionTypeView = new ArtistView(question);
         this._questionTypeView.onChange = this.onAnswer;
         break;
       case `genre`:
-        this._questionTypeView = new GenreView(this._model.currentQuestion);
+        this._questionTypeView = new GenreView(question);
         this._questionTypeView.onSubmit = this.onAnswer;
         break;
     }

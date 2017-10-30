@@ -7,7 +7,9 @@ export default class TimerPresenter {
     this.Model = new Model(time);
     this.View = View;
     this.dom = dom;
+  }
 
+  init() {
     this.Model.on(`change`, () => {
       this.updateView(this.Model.timer.value);
     });
@@ -15,7 +17,9 @@ export default class TimerPresenter {
     this.Model.on(`done`, () => {
       this.handleStop();
     });
+  }
 
+  start() {
     this.handleStart();
   }
 
@@ -31,6 +35,7 @@ export default class TimerPresenter {
 
     this.interval = setInterval(() => {
       this.model.tick();
+      this.onTick(this.Model.timer.value);
     }, 1000);
   }
 
@@ -45,5 +50,9 @@ export default class TimerPresenter {
 
   handleReset() {
     this.model.reset();
+  }
+
+  onTick() {
+
   }
 }

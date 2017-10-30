@@ -4,31 +4,36 @@ export default class GameModel extends Observer {
   constructor(questions) {
     super();
 
-    this.questions = questions;
+    this._questions = questions;
+    this.mistakesCount = 0;
   }
 
   init() {
-    this.currentQuestion = null;
     this.answers = [];
+    this._nextQuestion();
   }
 
-  get mistakesCount() {
-    let count = 0;
-    this.answers.forEach((ans) => {
-      if (!ans.isCorrect) {
-        count++;
-      }
-    });
+  pushAnswer(isCorrect, time) {
+    const answersCount = this.answers.length;
+    const answer = {isCorrect, time: time - (answersCount > 0 ? this.answers[answersCount - 1] : 0)};
 
-    return count;
+    this.answers.push(answer);
+
+    if (!answer.isCorrect) {
+      this.mistakesCount++;
+      this.fire(`makeMistake`, this.mistakesCount);
+    }
+
+    this._nextQuestion();
   }
 
-  get passedTime() {
-    let time = 0;
-    this.answers.forEach((ans) => {
-      time = ans.time;
-    });
+  _nextQuestion() {
+    const nextQuestionIndex = this.answers.length;
+    if (nextQuestionIndex < this._questions.length) {
+      this.currentQuestion = this._questions[nextQuestionIndex];
+      this.fire(`nextQuestion`, this.currentQuestion);
+    }
 
-    return time;
+    this.fire(`questionsOver`);
   }
 }
