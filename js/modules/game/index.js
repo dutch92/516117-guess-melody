@@ -48,7 +48,7 @@ class GamePresenter {
 
     const startGameTimer = () => {
       this.interval = setInterval(() => {
-        if(this.timer.tick()) {
+        if (this.timer.tick()) {
           this.model.currentAnswerTime++;
           this.view.updateTimer(this.timer.value);
         } else {
@@ -56,7 +56,7 @@ class GamePresenter {
           App.showResult({status: status.OVER_TIME});
         }
       }, 1000);
-    }
+    };
 
     this.model.init();
     startGameTimer();

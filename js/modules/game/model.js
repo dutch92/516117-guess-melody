@@ -16,7 +16,7 @@ export default class GameModel extends Observer {
   }
 
   pushAnswer(isCorrect) {
-    this.answers.push(isCorrect, time: this.currentAnswerTime);
+    this.answers.push({isCorrect, time: this.currentAnswerTime});
 
     if (!isCorrect) {
       this.mistakesCount++;

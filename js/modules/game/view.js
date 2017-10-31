@@ -1,8 +1,8 @@
 import AbstractView from '../AbstractView';
 import ArtistView from './views/artist';
 import GenreView from './views/genre';
-import TimerView from './views/timer';
 import {formatTime} from '../../utils';
+import config from '../../gameConfig';
 
 export default class GameView extends AbstractView {
   get template() {

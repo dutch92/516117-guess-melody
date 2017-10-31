@@ -12,9 +12,9 @@ export default class ResultView extends AbstractView {
     return (
       `<section class="main main--result">
         <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-        <h2 class="title">${this.getTitle({...this.gameResult})}</h2>
-        <div class="main-stat">${this.getStat({...this.gameResult})}</div>
-        ${this.getComparison({...this.gameResult})}
+        <h2 class="title">${getTitle(this.gameResult)}</h2>
+        <div class="main-stat">${getStat(this.gameResult)}</div>
+        ${getComparison(this.gameResult)}
         <span role="button" tabindex="0" class="main-replay">Попробовать ещё раз</span>
       </section>`
     );

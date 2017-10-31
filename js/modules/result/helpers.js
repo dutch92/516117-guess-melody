@@ -9,9 +9,9 @@ export const resultStatus = {
 
 export const getTitle = ({status}) => {
   const textMap = {
-    resultStatus.OVER_TIME: `Увы и ах!`,
-    resultStatus.OVER_ATTEMPTS: `Какая жалость!`,
-    resultStatus.WIN: `Вы настоящий меломан!`
+    [resultStatus.OVER_TIME]: `Увы и ах!`,
+    [resultStatus.OVER_ATTEMPTS]: `Какая жалость!`,
+    [resultStatus.WIN]: `Вы настоящий меломан!`
   };
   return textMap[status];
 };
@@ -27,9 +27,9 @@ const forms = {
 
 export const getStat = ({status, ...result}) => {
   const textMap = {
-    resultStatus.OVER_TIME: `Время вышло!<br>Вы не успели отгадать все мелодии`,
-    resultStatus.OVER_ATTEMPTS: `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`,
-    resultStatus.WIN: () => {
+    [resultStatus.OVER_TIME]: `Время вышло!<br>Вы не успели отгадать все мелодии`,
+    [resultStatus.OVER_ATTEMPTS]: `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`,
+    [resultStatus.WIN]: () => {
       const minutes = Math.floor(result.elapsedTime / 60);
       const seconds = result.elapsedTime - (minutes * 60);
 
@@ -67,8 +67,8 @@ export const getComparison = ({status, ...result}) => {
   let worseResults = ((playersCount - place) / playersCount) * 100;
   worseResults = Math.round(worseResults);
 
-  const playerForm = getPluralForm(playersCount, PluralForm.PLAYERS);
-  const percentForm = getPluralForm(worseResults, PluralForm.PLAYERS);
+  const playerForm = getPluralForm(playersCount, forms.PLAYERS);
+  const percentForm = getPluralForm(worseResults, forms.PLAYERS);
 
   return (
     `<span class="main-comparison">
