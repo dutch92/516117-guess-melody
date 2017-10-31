@@ -1,11 +1,13 @@
 import Observer from '../Observer';
+import questions from '../../data/questions';
 
 export default class GameModel extends Observer {
-  constructor(questions) {
+  constructor() {
     super();
 
     this._questions = questions;
     this.mistakesCount = 0;
+    this.currentAnswerTime = 0;
   }
 
   init() {
@@ -13,13 +15,10 @@ export default class GameModel extends Observer {
     this._nextQuestion();
   }
 
-  pushAnswer(isCorrect, time) {
-    const answersCount = this.answers.length;
-    const answer = {isCorrect, time: time - (answersCount > 0 ? this.answers[answersCount - 1] : 0)};
+  pushAnswer(isCorrect) {
+    this.answers.push({isCorrect, time: this.currentAnswerTime});
 
-    this.answers.push(answer);
-
-    if (!answer.isCorrect) {
+    if (!isCorrect) {
       this.mistakesCount++;
       this.fire(`makeMistake`, this.mistakesCount);
     }
@@ -32,8 +31,9 @@ export default class GameModel extends Observer {
     if (nextQuestionIndex < this._questions.length) {
       this.currentQuestion = this._questions[nextQuestionIndex];
       this.fire(`nextQuestion`, this.currentQuestion);
+      this.currentAnswerTime = 0;
+    } else {
+      this.fire(`questionsOver`);
     }
-
-    this.fire(`questionsOver`);
   }
 }

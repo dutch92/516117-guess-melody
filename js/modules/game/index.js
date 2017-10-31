@@ -1,58 +1,65 @@
-import app from '../../App';
+import App from '../../App';
 import GameModel from './model';
 import GameView from './view';
-import Timer from '../timer';
 import {render} from '../../utils';
 import countScore from '../../functions/countScore';
-import dataQuestions from '../../data/questions';
+import getTimer from '../../functions/timer';
+import config from '../../gameConfig';
+import status from '../result/helpers';
 
 class GamePresenter {
-  constructor(questions = dataQuestions) {
-    this._model = new GameModel(questions);
-    this._view = new GameView(this._model);
-    this._gameTime = 0;
-    this._timer = new Timer(this._view.element.querySelector(`.time-container`), app.config.GAME_TIME);
-  }
-
   init() {
-    render(app.container, this._view.element);
+    this.model = new GameModel();
+    this.view = new GameView();
+    this.timer = getTimer(config.GAME_TIME);
 
-    this._model.on(`makeMistake`, (mistakesCount) => {
-      if (mistakesCount >= app.config.MAX_ATTEMPTS) {
-        return app.showResult({status: `attemptsOver`});
+    render(this._view.element);
+
+    this.model.on(`makeMistake`, (mistakesCount) => {
+      if (mistakesCount >= config.MAX_ATTEMPTS) {
+        return App.showResult({status: status.OVER_ATTEMPTS});
       }
       return this._view.updateMistakes(mistakesCount);
     });
-    this._model.on(`nextQuestion`, (nextQuestion) => {
+
+    this.model.on(`nextQuestion`, (nextQuestion) => {
       this._view.updateGameContainer(nextQuestion);
     });
-    this._model.on(`questionsOver`, () => {
-      const fastAnswersCount = this._model.answers.reduce((count, ans) => {
-        if (ans.isCorrect && ans.time <= app.config.FAST_TIME) {
+
+    this.model.on(`questionsOver`, () => {
+      const fastAnswersCount = this.model.answers.reduce((count, ans) => {
+        if (ans.isCorrect && ans.time <= config.FAST_TIME) {
           count++;
         }
       }, 0);
 
-      app.showResult({
-        status: `win`,
-        score: countScore(this._model.answers, app.config.MAX_ATTEMPTS - this._model.mistakesCount - 1),
-        elapsedTime: this._gameTime,
-        mistakesCount: this._model.mistakesCount,
+      App.showResult({
+        status: status.WIN,
+        score: countScore(this.model.answers, config.MAX_ATTEMPTS - this.model.mistakesCount - 1),
+        elapsedTime: config.GAME_TIME - this.timer.value,
+        mistakesCount: this.model.mistakesCount,
         fastAnswersCount
       });
     });
-    this._timer.onTick = (time) => {
-      this._gameTime++;
-      if (time <= 0) {
-        app.showResult({status: `timeOver`});
-      }
-    };
+
     this._view.onAnswer = (isCorrect) => {
-      this._model.pushAnswer(isCorrect, this._gameTime);
+      this.model.pushAnswer(isCorrect);
     };
 
-    this._model.init();
-    this._timer.start();
+    const startGameTimer = () => {
+      this.interval = setInterval(() => {
+        if (this.timer.tick()) {
+          this.model.currentAnswerTime++;
+          this.view.updateTimer(this.timer.value);
+        } else {
+          clearInterval(this.interval);
+          App.showResult({status: status.OVER_TIME});
+        }
+      }, 1000);
+    };
+
+    this.model.init();
+    startGameTimer();
   }
 }
 

@@ -1,16 +1,16 @@
-import app from '../../App';
+import App from '../../App';
 import View from './view';
 import {render} from '../../utils';
 
 class WelcomePresenter {
   constructor() {
-    this.View = new View();
+    this.view = new View();
   }
   init() {
-    render(app.container, this.View.element);
+    render(this.view.element);
 
-    this.View.onStart = () => {
-      app.startGame();
+    this.view.onStart = () => {
+      App.startGame();
     };
   }
 }
