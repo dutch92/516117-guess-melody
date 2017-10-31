@@ -1,4 +1,5 @@
-export const render = (container, element) => {
+export const render = (element) => {
+  const container = document.querySelector(`.app > .main`);
   container.innerHTML = ``;
   container.appendChild(element);
 };

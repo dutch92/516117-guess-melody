@@ -1,13 +1,8 @@
-import config from './gameConfig';
 import welcome from './modules/welcome';
 import game from './modules/game';
+import result from './modules/result';
 
-class App {
-  constructor() {
-    this.config = config;
-    this.container = document.querySelector(`div.app > section.main`);
-  }
-
+export default class App {
   init() {
     welcome.init();
   }
@@ -16,9 +11,7 @@ class App {
     game.init();
   }
 
-  showResult() {
-
+  showResult(gameResult) {
+    result.init(gameResult);
   }
 }
-
-export default new App();
