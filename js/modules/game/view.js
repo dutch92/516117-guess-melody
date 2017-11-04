@@ -39,7 +39,7 @@ export default class GameView extends AbstractView {
     switch (question.type) {
       case `artist`:
         this._questionTypeView = new ArtistView(question);
-        this._questionTypeView.onChange = this.onAnswer;
+        this._questionTypeView.onAnswer = this.onAnswer;
         break;
       case `genre`:
         this._questionTypeView = new GenreView(question);

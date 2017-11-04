@@ -1,5 +1,5 @@
 export default {
-  GAME_TIME: 60,
+  GAME_TIME: 300,
   FAST_TIME: 30,
   LEVELS_COUNT: 10,
   MAX_ATTEMPTS: 4,

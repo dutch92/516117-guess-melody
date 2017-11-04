@@ -7,13 +7,13 @@ export default class GenreView extends AbstractView {
     this._question = question;
   }
 
-  static _getOptionHTML(option, i) {
+  _getOptionHTML(option, i) {
     return (
       `<div class="genre-answer">
       <div class="player-wrapper">
         <div class="player">
-          <audio src="${option.songSrc}"></audio>
-          <button class="player-control player-control--pause"></button>
+          <audio src="${option.src}"></audio>
+          <button class="player-control player-control--play"></button>
           <div class="player-track">
             <span class="player-status"></span>
           </div>
@@ -39,35 +39,45 @@ export default class GenreView extends AbstractView {
   }
 
   bind() {
-    this.element.addEventListener(`click`, (evt) => {
-      const btn = evt.target;
-      if (btn.classList.contains(`player-control`)) {
+    this.element.querySelectorAll(`.player-control`).forEach((el, i, arr) => {
+      el.addEventListener(`click`, (evt) => {
         evt.preventDefault();
-        const playerEl = btn.closest(`.player`);
-        const closestAudioEl = playerEl.querySelector(`audio`);
-        btn.classList.toggle(`player-control--pause`);
-        btn.classList.toggle(`player-control--play`);
-        if (closestAudioEl.paused) {
-          closestAudioEl.play();
-        } else {
-          closestAudioEl.pause();
+        arr.forEach((item) => {
+          if (item !== evt.target) {
+            item.classList.toggle(`player-control--pause`, false);
+            item.classList.toggle(`player-control--play`, true);
+
+            const audio = item.previousElementSibling;
+            if (audio) {
+              audio.pause();
+            }
+          }
+        });
+        evt.target.classList.toggle(`player-control--play`);
+        evt.target.classList.toggle(`player-control--pause`);
+
+        const audio = evt.target.previousElementSibling;
+        if (audio) {
+          if(audio.paused) {
+            audio.play();
+          } else {
+            audio.pause();
+          }
         }
-      }
+      });
     });
 
     this.element.querySelectorAll(`input[name="answer"]`).forEach((el, i, arr) => {
-      el.onchange = () => {
+      el.addEventListener(`change`, () => {
         this.element.querySelector(`button.genre-answer-send`).disabled = !Array.from(arr).some((n) => n.checked);
-      };
+      });
     });
 
-    this.element.querySelector(`button:not([attr="disabled"]).genre-answer-send`).onclick = (evt) => {
-      evt.preventDefault();
-
+    this.element.querySelector(`button:not([attr="disabled"]).genre-answer-send`).addEventListener(`click`, (evt) => {
       const answers = Array.from(this.element.querySelectorAll(`input[type="checkbox"]:checked`)).map((el) => el.value);
 
       this.onSubmit(this._checkAnswer(answers));
-    };
+    });
   }
 
   _checkAnswer(answers) {

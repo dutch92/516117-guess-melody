@@ -43,8 +43,7 @@ export const getPluralForm = (count, forms) => {
 };
 
 export const getDashProps = (seconds) => {
-  const radius = 370;
-  const circleLength = Math.ceil(Math.PI * radius * 2);
+  const circleLength = Math.ceil(Math.PI * 370 * 2);
   const ratio = seconds / 300;
   const progress = circleLength * (1 - ratio);
 

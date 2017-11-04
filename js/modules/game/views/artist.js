@@ -26,7 +26,7 @@ export default class ArtistView extends AbstractView {
         <div class="player-wrapper">
           <div class="player">
             <audio src="${this._question.songSrc}"></audio>
-            <button class="player-control player-control--pause"></button>
+            <button class="player-control player-control--play"></button>
             <div class="player-track">
               <span class="player-status"></span>
             </div>
@@ -53,11 +53,12 @@ export default class ArtistView extends AbstractView {
       }
     });
 
-    this.element.querySelector(`.main-list`).addEventListener(`change`, (evt) => {
-      evt.preventDefault();
-      const artistName = evt.target.value;
+    this.element.querySelectorAll(`.main-answer-r`).forEach((el) => {
+      el.onchange = (evt) => {
+        const artistName = evt.target.value;
 
-      this.onSelectChange(this._checkAnswer(artistName));
+        this.onAnswer(this._checkAnswer(artistName));
+      };
     });
   }
 
@@ -67,5 +68,5 @@ export default class ArtistView extends AbstractView {
 
   onPlayerControlClick() {}
 
-  onSelectChange() {}
+  onAnswer() {}
 }

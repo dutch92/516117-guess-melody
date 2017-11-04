@@ -47,15 +47,17 @@ class GamePresenter {
     };
 
     const startGameTimer = () => {
-      this.interval = setInterval(() => {
-        if (this.timer.tick()) {
-          this.model.currentAnswerTime++;
-          this.view.updateTimer(this.timer.value);
-        } else {
-          clearInterval(this.interval);
-          App.showResult({status: resultStatus.OVER_TIME});
-        }
-      }, 1000);
+      if(!this.interval) {
+        this.interval = setInterval(() => {
+          if (this.timer.tick()) {
+            this.model.currentAnswerTime++;
+            this.view.updateTimer(this.timer.value);
+          } else {
+            clearInterval(this.interval);
+            App.showResult({status: resultStatus.OVER_TIME});
+          }
+        }, 1000);
+      }
     };
 
     this.model.init();
