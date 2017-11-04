@@ -2,10 +2,10 @@ import App from '../../App';
 import GameModel from './model';
 import GameView from './view';
 import {render} from '../../utils';
-import countScore from '../../functions/countScore';
+import {countScore} from '../../functions/countScore';
 import getTimer from '../../functions/timer';
 import config from '../../gameConfig';
-import status from '../result/helpers';
+import {resultStatus} from '../result/helpers';
 
 class GamePresenter {
   init() {

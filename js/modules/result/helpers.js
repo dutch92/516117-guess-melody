@@ -25,7 +25,7 @@ const forms = {
   PLAYERS: [`игрока`, `игроков`, `игроков`]
 };
 
-export const getStat = ({status, ...result}) => {
+export const getStat = ({status, elapsedTime, score, fastAnswersCount, mistakesCount}) => {
   const textMap = {
     [resultStatus.OVER_TIME]: `Время вышло!<br>Вы не успели отгадать все мелодии`,
     [resultStatus.OVER_ATTEMPTS]: `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`,
@@ -50,7 +50,7 @@ export const getStat = ({status, ...result}) => {
   }
 };
 
-export const getComparison = ({status, ...result}) => {
+export const getComparison = ({status, elapsedTime, score, fastAnswersCount, mistakesCount}) => {
   if (status !== resultStatus.WIN) {
     return ``;
   }
