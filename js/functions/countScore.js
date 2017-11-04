@@ -1,4 +1,4 @@
-const FAST_TIME = 30000;
+const FAST_TIME = 30;
 const QUESTIONS_COUNT = 10;
 const MAX_ATTEMPTS = 4;
 const PENAL_POINT = 2;

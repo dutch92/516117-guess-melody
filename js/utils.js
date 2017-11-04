@@ -8,7 +8,7 @@ export const createElement = (tmpl) => {
   const div = document.createElement(`div`);
   div.innerHTML = tmpl;
 
-  return div;
+  return div.firstChild;
 };
 
 const zeroed = (num) => {
@@ -40,4 +40,16 @@ export const getPluralForm = (count, forms) => {
   } else {
     return forms[2];
   }
+};
+
+export const getDashProps = (seconds) => {
+  const radius = 370;
+  const circleLength = Math.ceil(Math.PI * radius * 2);
+  const ratio = seconds / 300;
+  const progress = circleLength * (1 - ratio);
+
+  return {
+    dashArrayValue: circleLength,
+    dashOffsetValue: progress
+  };
 };

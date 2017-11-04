@@ -13,17 +13,17 @@ class GamePresenter {
     this.view = new GameView();
     this.timer = getTimer(config.GAME_TIME);
 
-    render(this._view.element);
+    render(this.view.element);
 
     this.model.on(`makeMistake`, (mistakesCount) => {
       if (mistakesCount >= config.MAX_ATTEMPTS) {
-        return App.showResult({status: status.OVER_ATTEMPTS});
+        return App.showResult({status: resultStatus.OVER_ATTEMPTS});
       }
-      return this._view.updateMistakes(mistakesCount);
+      return this.view.updateMistakes(mistakesCount);
     });
 
     this.model.on(`nextQuestion`, (nextQuestion) => {
-      this._view.updateGameContainer(nextQuestion);
+      this.view.updateGameContainer(nextQuestion);
     });
 
     this.model.on(`questionsOver`, () => {
@@ -34,7 +34,7 @@ class GamePresenter {
       }, 0);
 
       App.showResult({
-        status: status.WIN,
+        status: resultStatus.WIN,
         score: countScore(this.model.answers, config.MAX_ATTEMPTS - this.model.mistakesCount - 1),
         elapsedTime: config.GAME_TIME - this.timer.value,
         mistakesCount: this.model.mistakesCount,
@@ -42,7 +42,7 @@ class GamePresenter {
       });
     });
 
-    this._view.onAnswer = (isCorrect) => {
+    this.view.onAnswer = (isCorrect) => {
       this.model.pushAnswer(isCorrect);
     };
 
@@ -53,7 +53,7 @@ class GamePresenter {
           this.view.updateTimer(this.timer.value);
         } else {
           clearInterval(this.interval);
-          App.showResult({status: status.OVER_TIME});
+          App.showResult({status: resultStatus.OVER_TIME});
         }
       }, 1000);
     };

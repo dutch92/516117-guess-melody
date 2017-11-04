@@ -7,7 +7,7 @@ export default class ArtistView extends AbstractView {
     this._question = question;
   }
 
-  static _getOptionHTML(option, i) {
+  _getOptionHTML(option, i) {
     return (
       `<div class="main-answer-wrapper">
       <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.artist}"/>
