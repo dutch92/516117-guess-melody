@@ -7,13 +7,13 @@ export default class ArtistView extends AbstractView {
     this._question = question;
   }
 
-  static _getOptionHTML(option, i) {
+  _getOptionHTML(option, i) {
     return (
       `<div class="main-answer-wrapper">
-      <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.artist}"/>
+      <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.title}"/>
       <label class="main-answer" for="answer-${i}">
-        <img class="main-answer-preview" src="${option.image}" alt="${option.artist}" width="134" height="134">
-        ${option.artist}
+        <img class="main-answer-preview" src="${option.image.url}" alt="${option.title}" width="134" height="134">
+        ${option.title}
       </label>
     </div>`
     );
@@ -22,18 +22,18 @@ export default class ArtistView extends AbstractView {
   get template() {
     return (
       `<div class="main-wrap">
-        <h2 class="title main-title">${this._question.title}</h2>
+        <h2 class="title main-title">${this._question.question}</h2>
         <div class="player-wrapper">
           <div class="player">
-            <audio src="${this._question.songSrc}"></audio>
-            <button class="player-control player-control--pause"></button>
+            <audio src="${this._question.src}"></audio>
+            <button class="player-control player-control--play"></button>
             <div class="player-track">
               <span class="player-status"></span>
             </div>
           </div>
         </div>
         <form class="main-list">
-          ${this._question.options.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
+          ${this._question.answers.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
         </form>
       </div>`
     );
@@ -53,19 +53,25 @@ export default class ArtistView extends AbstractView {
       }
     });
 
-    this.element.querySelector(`.main-list`).addEventListener(`change`, (evt) => {
-      evt.preventDefault();
-      const artistName = evt.target.value;
+    this.element.querySelectorAll(`.main-answer-r`).forEach((el) => {
+      el.onchange = (evt) => {
+        const artistName = evt.target.value;
 
-      this.onSelectChange(this._checkAnswer(artistName));
+        this.onAnswer(this._checkAnswer(artistName));
+      };
     });
   }
 
   _checkAnswer(artistName) {
-    return artistName === this._question.correctAnswer;
+    const answer = this._question.answers.find((ans) => ans.title === artistName);
+    if (answer) {
+      return answer.isCorrect;
+    } else {
+      return false;
+    }
   }
 
   onPlayerControlClick() {}
 
-  onSelectChange() {}
+  onAnswer() {}
 }

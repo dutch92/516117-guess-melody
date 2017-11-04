@@ -1,6 +1,6 @@
-import welcome from './modules/welcome';
-import game from './modules/game';
-import result from './modules/result';
+import welcome from './modules/welcome/index.js';
+import game from './modules/game/index.js';
+import result from './modules/result/index.js';
 
 const router = {
   WELCOME: ``,

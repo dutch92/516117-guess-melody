@@ -1,7 +1,7 @@
 import AbstractView from '../AbstractView';
 import ArtistView from './views/artist';
 import GenreView from './views/genre';
-import {formatTime} from '../../utils';
+import {formatTime, getDashProps} from '../../utils';
 import config from '../../gameConfig';
 
 export default class GameView extends AbstractView {
@@ -39,7 +39,7 @@ export default class GameView extends AbstractView {
     switch (question.type) {
       case `artist`:
         this._questionTypeView = new ArtistView(question);
-        this._questionTypeView.onChange = this.onAnswer;
+        this._questionTypeView.onAnswer = this.onAnswer;
         break;
       case `genre`:
         this._questionTypeView = new GenreView(question);
@@ -61,15 +61,18 @@ export default class GameView extends AbstractView {
 
   _getTimerHTML(time) {
     const {min, sec} = formatTime(time);
+    const circleData = getDashProps(time);
 
     return (
       `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
         <circle
           cx="390" cy="390" r="370"
           class="timer-line"
+          stroke-dasharray="${circleData.dashArrayValue}"
+          stroke-dashoffset="${circleData.dashOffsetValue}"
           style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
       </svg>
-      <div class="timer-value${time < config.WARNING_TIME ? ` timer-value--time-danger` : ``}">
+      <div class="timer-value${time < config.WARNING_TIME ? ` timer-value--finished` : ``}">
         <span class="timer-value-mins">${min}</span>
         <span class="timer-value-dots">:</span>
         <span class="timer-value-secs">${sec}</span>

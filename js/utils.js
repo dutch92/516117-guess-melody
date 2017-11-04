@@ -8,7 +8,7 @@ export const createElement = (tmpl) => {
   const div = document.createElement(`div`);
   div.innerHTML = tmpl;
 
-  return div;
+  return div.firstChild;
 };
 
 const zeroed = (num) => {
@@ -22,7 +22,7 @@ export const formatTime = (seconds) => {
 };
 
 export const getPluralForm = (count, forms) => {
-  if (!Number.isInteger(count)) {
+  if (isNaN(+count)) {
     throw new TypeError(`Count is not integer`);
   }
   if (!Array.isArray(forms)) {
@@ -40,4 +40,23 @@ export const getPluralForm = (count, forms) => {
   } else {
     return forms[2];
   }
+};
+
+export const getDashProps = (seconds) => {
+  const circleLength = Math.ceil(Math.PI * 370 * 2);
+  const ratio = seconds / 300;
+  const progress = circleLength * (1 - ratio);
+
+  return {
+    dashArrayValue: circleLength,
+    dashOffsetValue: progress
+  };
+};
+
+export const loadQuestions = (path) => {
+  return fetch(`${path}/questions`).then((res) => {
+    return res.json();
+  }, (err) => {
+    throw err;
+  });
 };

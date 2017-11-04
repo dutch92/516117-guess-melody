@@ -25,20 +25,20 @@ const forms = {
   PLAYERS: [`игрока`, `игроков`, `игроков`]
 };
 
-export const getStat = ({status, ...result}) => {
+export const getStat = ({status, elapsedTime, score, fastAnswersCount, mistakesCount}) => {
   const textMap = {
     [resultStatus.OVER_TIME]: `Время вышло!<br>Вы не успели отгадать все мелодии`,
     [resultStatus.OVER_ATTEMPTS]: `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`,
     [resultStatus.WIN]: () => {
-      const minutes = Math.floor(result.elapsedTime / 60);
-      const seconds = result.elapsedTime - (minutes * 60);
+      const minutes = Math.floor(elapsedTime / 60);
+      const seconds = elapsedTime - (minutes * 60);
 
       return (
         `За ${minutes} ${getPluralForm(minutes, forms.MINUTES)}
         и ${seconds} ${getPluralForm(seconds, forms.SECONDS)}
-        <br>вы набрали ${result.score} ${getPluralForm(result.score, forms.SCORE)}
-        (${result.fastAnswersCount} ${getPluralForm(result.fastAnswersCount, forms.FAST_ANSWERS)})
-        <br>совершив ${result.mistakesCount} ${getPluralForm(result.mistakesCount, forms.MISTAKES)}`
+        <br>вы набрали ${score} ${getPluralForm(score, forms.SCORE)}
+        (${fastAnswersCount} ${getPluralForm(fastAnswersCount, forms.FAST_ANSWERS)})
+        <br>совершив ${mistakesCount} ${getPluralForm(mistakesCount, forms.MISTAKES)}`
       );
     }
   };
@@ -50,12 +50,12 @@ export const getStat = ({status, ...result}) => {
   }
 };
 
-export const getComparison = ({status, ...result}) => {
+export const getComparison = ({status, score}) => {
   if (status !== resultStatus.WIN) {
     return ``;
   }
 
-  const currentScore = result.score;
+  const currentScore = score;
   allScores.push(currentScore);
   let scores = allScores.slice();
   scores.sort((a, b) => {
