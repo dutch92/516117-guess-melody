@@ -1,6 +1,5 @@
 import Observer from '../Observer';
-import {loadQuestions} from '../../utils';
-import config from '../../gameConfig';
+import {loadQuestions} from '../../functions/server';
 
 export default class GameModel extends Observer {
   constructor() {
@@ -13,7 +12,7 @@ export default class GameModel extends Observer {
   init() {
     this.answers = [];
 
-    loadQuestions(config.SERVER_URL).then((questions) => {
+    loadQuestions().then((questions) => {
       this._questions = questions;
       this._nextQuestion();
     });

@@ -8,6 +8,8 @@ export default class GenreView extends AbstractView {
   }
 
   _getOptionHTML(option, i) {
+    window.console.log(i + 1, option.genre); // маленькая подсказка :)
+
     return (
       `<div class="genre-answer">
       <div class="player-wrapper">
