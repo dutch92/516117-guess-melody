@@ -27,11 +27,12 @@ class GamePresenter {
     });
 
     this.model.on(`questionsOver`, () => {
-      const fastAnswersCount = this.model.answers.reduce((count, ans) => {
+      let fastAnswersCount = 0;
+      this.model.answers.forEach((ans) => {
         if (ans.isCorrect && ans.time <= config.FAST_TIME) {
-          count++;
+          fastAnswersCount++;
         }
-      }, 0);
+      });
 
       App.showResult({
         status: resultStatus.WIN,
@@ -47,7 +48,7 @@ class GamePresenter {
     };
 
     const startGameTimer = () => {
-      if(!this.interval) {
+      if (!this.interval) {
         this.interval = setInterval(() => {
           if (this.timer.tick()) {
             this.model.currentAnswerTime++;

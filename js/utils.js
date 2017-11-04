@@ -22,7 +22,7 @@ export const formatTime = (seconds) => {
 };
 
 export const getPluralForm = (count, forms) => {
-  if (!Number.isInteger(count)) {
+  if (isNaN(+count)) {
     throw new TypeError(`Count is not integer`);
   }
   if (!Array.isArray(forms)) {

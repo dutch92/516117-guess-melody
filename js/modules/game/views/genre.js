@@ -58,7 +58,7 @@ export default class GenreView extends AbstractView {
 
         const audio = evt.target.previousElementSibling;
         if (audio) {
-          if(audio.paused) {
+          if (audio.paused) {
             audio.play();
           } else {
             audio.pause();
@@ -74,6 +74,8 @@ export default class GenreView extends AbstractView {
     });
 
     this.element.querySelector(`button:not([attr="disabled"]).genre-answer-send`).addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+
       const answers = Array.from(this.element.querySelectorAll(`input[type="checkbox"]:checked`)).map((el) => el.value);
 
       this.onSubmit(this._checkAnswer(answers));
