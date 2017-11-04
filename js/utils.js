@@ -52,11 +52,3 @@ export const getDashProps = (seconds) => {
     dashOffsetValue: progress
   };
 };
-
-export const loadQuestions = (path) => {
-  return fetch(`${path}/questions`).then((res) => {
-    return res.json();
-  }, (err) => {
-    throw err;
-  });
-};

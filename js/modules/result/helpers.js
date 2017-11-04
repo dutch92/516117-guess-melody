@@ -1,5 +1,4 @@
 import {getPluralForm} from '../../utils';
-import {allScores} from '../../data/gameData';
 
 export const resultStatus = {
   OVER_TIME: 1,
@@ -50,7 +49,7 @@ export const getStat = ({status, elapsedTime, score, fastAnswersCount, mistakesC
   }
 };
 
-export const getComparison = ({status, score}) => {
+export const getComparison = ({status, score}, allScores) => {
   if (status !== resultStatus.WIN) {
     return ``;
   }
