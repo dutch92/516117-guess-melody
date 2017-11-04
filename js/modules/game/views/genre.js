@@ -19,7 +19,7 @@ export default class GenreView extends AbstractView {
           </div>
         </div>
       </div>
-      <input type="checkbox" name="answer" value="${option.name}" id="a-${i}">
+      <input type="checkbox" name="answer" value="${option.genre}" id="a-${i}">
       <label class="genre-answer-check" for="a-${i}"></label>
     </div>`
     );
@@ -29,9 +29,9 @@ export default class GenreView extends AbstractView {
   get template() {
     return (
       `<div class="main-wrap">
-        <h2 class="title">${this._question.title}</h2>
+        <h2 class="title">${this._question.question}</h2>
         <form class="genre">
-          ${this._question.options.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
+          ${this._question.answers.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
           <button class="genre-answer-send" disabled type="submit">Ответить</button>
         </form>
       </div>`
@@ -83,7 +83,7 @@ export default class GenreView extends AbstractView {
   }
 
   _checkAnswer(answers) {
-    return answers.every((ans) => this._question.correctAnswer.includes(ans));
+    return answers.every((ans) => this._question.genre === ans);
   }
 
   onSubmit() {}

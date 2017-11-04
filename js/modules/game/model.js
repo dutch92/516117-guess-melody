@@ -1,18 +1,22 @@
 import Observer from '../Observer';
-import questions from '../../data/questions';
+import {loadQuestions} from '../../utils';
+import config from '../../gameConfig';
 
 export default class GameModel extends Observer {
   constructor() {
     super();
 
-    this._questions = questions;
     this.mistakesCount = 0;
     this.currentAnswerTime = 0;
   }
 
   init() {
     this.answers = [];
-    this._nextQuestion();
+
+    loadQuestions(config.SERVER_URL).then((questions) => {
+      this._questions = questions;
+      this._nextQuestion();
+    });
   }
 
   pushAnswer(isCorrect) {

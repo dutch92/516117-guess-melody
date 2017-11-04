@@ -10,10 +10,10 @@ export default class ArtistView extends AbstractView {
   _getOptionHTML(option, i) {
     return (
       `<div class="main-answer-wrapper">
-      <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.artist}"/>
+      <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.title}"/>
       <label class="main-answer" for="answer-${i}">
-        <img class="main-answer-preview" src="${option.image}" alt="${option.artist}" width="134" height="134">
-        ${option.artist}
+        <img class="main-answer-preview" src="${option.image.url}" alt="${option.title}" width="134" height="134">
+        ${option.title}
       </label>
     </div>`
     );
@@ -22,10 +22,10 @@ export default class ArtistView extends AbstractView {
   get template() {
     return (
       `<div class="main-wrap">
-        <h2 class="title main-title">${this._question.title}</h2>
+        <h2 class="title main-title">${this._question.question}</h2>
         <div class="player-wrapper">
           <div class="player">
-            <audio src="${this._question.songSrc}"></audio>
+            <audio src="${this._question.src}"></audio>
             <button class="player-control player-control--play"></button>
             <div class="player-track">
               <span class="player-status"></span>
@@ -33,7 +33,7 @@ export default class ArtistView extends AbstractView {
           </div>
         </div>
         <form class="main-list">
-          ${this._question.options.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
+          ${this._question.answers.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
         </form>
       </div>`
     );
@@ -63,7 +63,12 @@ export default class ArtistView extends AbstractView {
   }
 
   _checkAnswer(artistName) {
-    return artistName === this._question.correctAnswer;
+    const answer = this._question.answers.find((ans) => ans.title === artistName);
+    if (answer) {
+      return answer.isCorrect;
+    } else {
+      return false;
+    }
   }
 
   onPlayerControlClick() {}
