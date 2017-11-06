@@ -1,4 +1,4 @@
-import Observer from '../Observer';
+import Observer from '../observer';
 import {loadQuestions} from '../../functions/server';
 
 export default class GameModel extends Observer {

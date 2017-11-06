@@ -1,4 +1,4 @@
-import AbstractView from '../../AbstractView';
+import AbstractView from '../../abstract-view';
 
 export default class ArtistView extends AbstractView {
   constructor(question) {
@@ -8,10 +8,6 @@ export default class ArtistView extends AbstractView {
   }
 
   _getOptionHTML(option, i) {
-    if (option.isCorrect) {
-      window.console.log(option.title); // маленькая подсказка :)
-    }
-
     return (
       `<div class="main-answer-wrapper">
       <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.title}"/>
@@ -75,7 +71,12 @@ export default class ArtistView extends AbstractView {
     }
   }
 
-  onPlayerControlClick() {}
-
   onAnswer() {}
+
+  startPlay() {
+    const audioElement = this.element.querySelector(`.player audio`);
+
+    this.loading = true;
+    audioElement.play();
+  }
 }

@@ -1,11 +1,11 @@
-import App from '../../App';
-import GameModel from './model';
-import GameView from './view';
+import App from '../../app';
+import GameModel from './game-model';
+import GameView from './game-view';
 import {render} from '../../utils';
-import {countScore} from '../../functions/countScore';
+import {countScore} from '../../functions/count-score';
 import getTimer from '../../functions/timer';
-import config from '../../gameConfig';
-import {resultStatus} from '../result/helpers';
+import config from '../../game-config';
+import {ResultStatus} from '../result/helpers';
 
 class GamePresenter {
   init() {
@@ -17,7 +17,7 @@ class GamePresenter {
 
     this.model.on(`makeMistake`, (mistakesCount) => {
       if (mistakesCount >= config.MAX_ATTEMPTS) {
-        return App.showResult({status: resultStatus.OVER_ATTEMPTS});
+        return App.showResult({status: ResultStatus.OVER_ATTEMPTS});
       }
       return this.view.updateMistakes(mistakesCount);
     });
@@ -35,7 +35,7 @@ class GamePresenter {
       });
 
       App.showResult({
-        status: resultStatus.WIN,
+        status: ResultStatus.WIN,
         score: countScore(this.model.answers, config.MAX_ATTEMPTS - this.model.mistakesCount - 1),
         elapsedTime: config.GAME_TIME - this.timer.value,
         mistakesCount: this.model.mistakesCount,
@@ -55,7 +55,7 @@ class GamePresenter {
             this.view.updateTimer(this.timer.value);
           } else {
             clearInterval(this.interval);
-            App.showResult({status: resultStatus.OVER_TIME});
+            App.showResult({status: ResultStatus.OVER_TIME});
           }
         }, 1000);
       }

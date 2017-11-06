@@ -1,17 +1,15 @@
-import AbstractView from '../AbstractView';
-import ArtistView from './views/artist';
-import GenreView from './views/genre';
+import AbstractView from '../abstract-view';
+import ArtistView from './views/artist-view';
+import GenreView from './views/genre-view';
 import {formatTime, getDashProps} from '../../utils';
-import config from '../../gameConfig';
+import config from '../../game-config';
 
 export default class GameView extends AbstractView {
   get template() {
     return (
       `<section class="main main--level">
-        <div>
-          <div class="time-container"></div>
-          <div class="main-mistakes"></div>
-        </div>
+        <div class="time-container"></div>
+        <div class="main-mistakes"></div>
         <div class="game-container"></div>
        </section>`
     );
@@ -47,16 +45,16 @@ export default class GameView extends AbstractView {
         break;
     }
     this._gameContainerElement.appendChild(this._questionTypeView.element);
+
+    if (question.type == `artist`) {
+      this._questionTypeView.startPlay();
+    }
   }
 
   _getMistakesHTML(mistakesCount) {
     const mistakeHTML = `<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`;
 
-    return (
-      `<div class="main-mistakes">
-        ${new Array(mistakesCount).fill(mistakeHTML).join(``)}
-      </div>`
-    );
+    return new Array(mistakesCount).fill(mistakeHTML).join(``);
   }
 
   _getTimerHTML(time) {

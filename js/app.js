@@ -1,17 +1,17 @@
-import welcome from './modules/welcome/index.js';
-import game from './modules/game/index.js';
-import result from './modules/result/index.js';
+import welcome from './modules/welcome/welcome-presenter';
+import game from './modules/game/game-presenter';
+import result from './modules/result/result-presenter';
 
-const router = {
+const Router = {
   WELCOME: ``,
   GAME: `game`,
   RESULT: `result`
 };
 
 const routes = {
-  [router.WELCOME]: welcome,
-  [router.GAME]: game,
-  [router.RESULT]: result
+  [Router.WELCOME]: welcome,
+  [Router.GAME]: game,
+  [Router.RESULT]: result
 };
 
 const marshal = (state) => {
@@ -39,15 +39,15 @@ export default class App {
   }
 
   static showWelcome() {
-    location.hash = router.WELCOME;
+    location.hash = Router.WELCOME;
   }
 
   static showGame() {
-    location.hash = router.GAME;
+    location.hash = Router.GAME;
   }
 
   static showResult(gameResult) {
-    location.hash = `${router.RESULT}?${marshal(gameResult)}`;
+    location.hash = `${Router.RESULT}?${marshal(gameResult)}`;
   }
 
   static changeRoute(id, data) {

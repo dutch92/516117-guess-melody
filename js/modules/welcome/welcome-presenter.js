@@ -1,5 +1,5 @@
-import App from '../../App';
-import View from './view';
+import App from '../../app';
+import View from './welcome-view';
 import {render} from '../../utils';
 
 class WelcomePresenter {

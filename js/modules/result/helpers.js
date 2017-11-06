@@ -1,21 +1,21 @@
 import {getPluralForm} from '../../utils';
 
-export const resultStatus = {
+export const ResultStatus = {
   OVER_TIME: 1,
   OVER_ATTEMPTS: 2,
   WIN: 3
 };
 
 export const getTitle = ({status}) => {
-  const textMap = {
-    [resultStatus.OVER_TIME]: `Увы и ах!`,
-    [resultStatus.OVER_ATTEMPTS]: `Какая жалость!`,
-    [resultStatus.WIN]: `Вы настоящий меломан!`
+  const TextMap = {
+    [ResultStatus.OVER_TIME]: `Увы и ах!`,
+    [ResultStatus.OVER_ATTEMPTS]: `Какая жалость!`,
+    [ResultStatus.WIN]: `Вы настоящий меломан!`
   };
-  return textMap[status];
+  return TextMap[status];
 };
 
-const forms = {
+const Forms = {
   MINUTES: [`минуту`, `минуты`, `минут`],
   SECONDS: [`секунду`, `секунды`, `секунд`],
   SCORE: [`балл`, `балла`, `баллов`],
@@ -25,32 +25,29 @@ const forms = {
 };
 
 export const getStat = ({status, elapsedTime, score, fastAnswersCount, mistakesCount}) => {
-  const textMap = {
-    [resultStatus.OVER_TIME]: `Время вышло!<br>Вы не успели отгадать все мелодии`,
-    [resultStatus.OVER_ATTEMPTS]: `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`,
-    [resultStatus.WIN]: () => {
+  switch (status) {
+    case ResultStatus.OVER_TIME:
+      return `Время вышло!<br>Вы не успели отгадать все мелодии`;
+    case ResultStatus.OVER_ATTEMPTS:
+      return `У вас закончились все попытки.<br>Ничего, повезёт в следующий раз!`;
+    case ResultStatus.WIN:
       const minutes = Math.floor(elapsedTime / 60);
       const seconds = elapsedTime - (minutes * 60);
 
       return (
-        `За ${minutes} ${getPluralForm(minutes, forms.MINUTES)}
-        и ${seconds} ${getPluralForm(seconds, forms.SECONDS)}
-        <br>вы набрали ${score} ${getPluralForm(score, forms.SCORE)}
-        (${fastAnswersCount} ${getPluralForm(fastAnswersCount, forms.FAST_ANSWERS)})
-        <br>совершив ${mistakesCount} ${getPluralForm(mistakesCount, forms.MISTAKES)}`
+        `За ${minutes} ${getPluralForm(minutes, Forms.MINUTES)}
+        и ${seconds} ${getPluralForm(seconds, Forms.SECONDS)}
+        <br>вы набрали ${score} ${getPluralForm(score, Forms.SCORE)}
+        (${fastAnswersCount} ${getPluralForm(fastAnswersCount, Forms.FAST_ANSWERS)})
+        <br>совершив ${mistakesCount} ${getPluralForm(mistakesCount, Forms.MISTAKES)}`
       );
-    }
-  };
-
-  if (typeof textMap[status] === `function`) {
-    return textMap[status]();
-  } else {
-    return textMap[status];
+    default:
+      return `Неизвестный статус`;
   }
 };
 
 export const getComparison = ({status, score}, allScores) => {
-  if (status !== resultStatus.WIN) {
+  if (status !== ResultStatus.WIN) {
     return ``;
   }
 
@@ -66,8 +63,8 @@ export const getComparison = ({status, score}, allScores) => {
   let worseResults = ((playersCount - place) / playersCount) * 100;
   worseResults = Math.round(worseResults);
 
-  const playerForm = getPluralForm(playersCount, forms.PLAYERS);
-  const percentForm = getPluralForm(worseResults, forms.PLAYERS);
+  const playerForm = getPluralForm(playersCount, Forms.PLAYERS);
+  const percentForm = getPluralForm(worseResults, Forms.PLAYERS);
 
   return (
     `<span class="main-comparison">

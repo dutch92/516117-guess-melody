@@ -1,8 +1,8 @@
-import AbstractView from '../AbstractView';
+import AbstractView from '../abstract-view';
 import {getPluralForm} from '../../utils';
-import config from '../../gameConfig';
+import config from '../../game-config';
 
-const forms = {
+const Forms = {
   count: [`раз`, `раза`, `раз`],
   minutes: [`минуту`, `минуты`, `минут`],
   seconds: [`секунду`, `секунды`, `секунд`]
@@ -18,11 +18,11 @@ export default class WelcomeView extends AbstractView {
       <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
       <button class="main-play" >Начать игру</button>
       <h2 class="title main-title">Правила игры</h2>
-      <p class="text main-text">Правила просты — за 
-        ${min} ${getPluralForm(min, forms.minutes)}
-        ${sec !== 0 ? ` ${sec} ${getPluralForm(sec, forms.seconds)}` : ``} 
+      <p class="text main-text">Правила просты — за
+        ${min} ${getPluralForm(min, Forms.minutes)}
+        ${sec !== 0 ? ` ${sec} ${getPluralForm(sec, Forms.seconds)}` : ``}
         ответить на все вопросы.<br>
-        Ошибиться можно ${attempts} ${getPluralForm(attempts, forms.count)}.<br>
+        Ошибиться можно ${attempts} ${getPluralForm(attempts, Forms.count)}.<br>
         Удачи!
       </p>
     </section>`;

@@ -1,8 +1,8 @@
-import App from '../../App';
-import ResultView from './view';
+import App from '../../app';
+import ResultView from './result-view';
 import {render} from '../../utils';
 import {loadResults, sendResult} from '../../functions/server';
-import {resultStatus} from './helpers';
+import {ResultStatus} from './helpers';
 
 class ResultPresenter {
   init(gameResult) {
@@ -13,7 +13,7 @@ class ResultPresenter {
       };
       render(this.view.element);
 
-      if (gameResult.status === resultStatus.WIN) {
+      if (gameResult.status === ResultStatus.WIN) {
         sendResult(gameResult);
       }
     });

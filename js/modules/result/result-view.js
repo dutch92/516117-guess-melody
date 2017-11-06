@@ -1,4 +1,4 @@
-import AbstractView from '../AbstractView';
+import AbstractView from '../abstract-view';
 import {getTitle, getStat, getComparison} from './helpers';
 
 export default class ResultView extends AbstractView {

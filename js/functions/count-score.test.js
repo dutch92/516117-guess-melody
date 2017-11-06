@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {countScore, QUESTIONS_COUNT, MAX_SCORE, MIN_POINT, MAX_POINT, PENAL_POINT} from './countScore';
+import {countScore, QUESTIONS_COUNT, MAX_SCORE, MIN_POINT, MAX_POINT, PENAL_POINT} from './count-score';
 
 describe(`Situation when the player answered less then ${QUESTIONS_COUNT} questions`, () => {
   it(`Should return -1 if the player answered 3 questions with 1 fail`, () => {

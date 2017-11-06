@@ -1,4 +1,4 @@
-import config from '../gameConfig';
+import config from '../game-config';
 
 export const loadQuestions = (path = config.SERVER_URL) => {
   return fetch(`${path}/questions`).then((res) => {
