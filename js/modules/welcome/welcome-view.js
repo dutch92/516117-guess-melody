@@ -10,8 +10,9 @@ const Forms = {
 
 export default class WelcomeView extends AbstractView {
   get template() {
-    const min = Math.floor(config.GAME_TIME / 60);
-    const sec = config.GAME_TIME - (min * 60);
+    const secInMin = 60;
+    const min = Math.floor(config.GAME_TIME / secInMin);
+    const sec = config.GAME_TIME - (min * secInMin);
     const attempts = config.MAX_ATTEMPTS - 1;
 
     return `<section class="main main--welcome">

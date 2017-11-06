@@ -14,6 +14,14 @@ class GamePresenter {
 
     render(this.view.element);
 
+    this._createHandlers();
+
+    this.model.init();
+
+    this._startGameTimer();
+  }
+
+  _createHandlers() {
     this.model.on(`makeMistake`, (mistakesCount) => {
       if (mistakesCount >= config.MAX_ATTEMPTS) {
         return App.showResult({status: ResultStatus.OVER_ATTEMPTS});
@@ -38,23 +46,20 @@ class GamePresenter {
     this.view.onAnswer = (isCorrect) => {
       this.model.pushAnswer(isCorrect);
     };
+  }
 
-    const startGameTimer = () => {
-      if (!this.interval) {
-        this.interval = setInterval(() => {
-          if (this.timer.tick()) {
-            this.model.currentAnswerTime++;
-            this.view.updateTimer(this.timer.value);
-          } else {
-            clearInterval(this.interval);
-            App.showResult({status: ResultStatus.OVER_TIME});
-          }
-        }, 1000);
-      }
-    };
-
-    this.model.init();
-    startGameTimer();
+  _startGameTimer() {
+    if (!this.interval) {
+      this.interval = setInterval(() => {
+        if (this.timer.tick()) {
+          this.model.currentAnswerTime++;
+          this.view.updateTimer(this.timer.value);
+        } else {
+          clearInterval(this.interval);
+          App.showResult({status: ResultStatus.OVER_TIME});
+        }
+      }, 1000);
+    }
   }
 }
 

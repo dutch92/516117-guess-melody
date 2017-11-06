@@ -15,12 +15,6 @@ export default class GameView extends AbstractView {
     );
   }
 
-  bind() {
-    this._timeContainerElement = this.element.querySelector(`.time-container`);
-    this._gameContainerElement = this.element.querySelector(`.game-container`);
-    this._mistakesContainerElement = this.element.querySelector(`.main-mistakes`);
-  }
-
   updateMistakes(mistakesCount) {
     this._mistakesContainerElement.innerHTML = this._getMistakesHTML(mistakesCount);
   }
@@ -76,6 +70,12 @@ export default class GameView extends AbstractView {
         <span class="timer-value-secs">${sec}</span>
       </div>`
     );
+  }
+
+  bind() {
+    this._timeContainerElement = this.element.querySelector(`.time-container`);
+    this._gameContainerElement = this.element.querySelector(`.game-container`);
+    this._mistakesContainerElement = this.element.querySelector(`.main-mistakes`);
   }
 
   onAnswer() {

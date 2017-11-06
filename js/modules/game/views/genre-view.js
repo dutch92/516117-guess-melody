@@ -7,6 +7,18 @@ export default class GenreView extends AbstractView {
     this._question = question;
   }
 
+  get template() {
+    return (
+      `<div class="main-wrap">
+        <h2 class="title">${this._question.question}</h2>
+        <form class="genre">
+          ${this._question.answers.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
+          <button class="genre-answer-send" disabled type="submit">Ответить</button>
+        </form>
+      </div>`
+    );
+  }
+
   _getOptionHTML(option, i) {
     return (
       `<div class="genre-answer">
@@ -25,17 +37,8 @@ export default class GenreView extends AbstractView {
     );
   }
 
-
-  get template() {
-    return (
-      `<div class="main-wrap">
-        <h2 class="title">${this._question.question}</h2>
-        <form class="genre">
-          ${this._question.answers.map((opt, i) => this._getOptionHTML(opt, i)).join(``)}
-          <button class="genre-answer-send" disabled type="submit">Ответить</button>
-        </form>
-      </div>`
-    );
+  _checkAnswer(answers) {
+    return answers.every((ans) => this._question.genre === ans);
   }
 
   bind() {
@@ -59,10 +62,10 @@ export default class GenreView extends AbstractView {
         const audio = evt.target.previousElementSibling;
         if (audio) {
           if (audio.paused) {
-            audio.play();
-          } else {
-            audio.pause();
+            return audio.play();
           }
+
+          return audio.pause();
         }
       });
     });
@@ -80,10 +83,6 @@ export default class GenreView extends AbstractView {
 
       this.onSubmit(this._checkAnswer(answers));
     });
-  }
-
-  _checkAnswer(answers) {
-    return answers.every((ans) => this._question.genre === ans);
   }
 
   onSubmit() {}

@@ -31,17 +31,6 @@ export default class GameModel extends Observer {
     this._nextQuestion();
   }
 
-  _nextQuestion() {
-    const nextQuestionIndex = this._answers.length;
-    if (nextQuestionIndex < this._questions.length) {
-      this.currentQuestion = this._questions[nextQuestionIndex];
-      this.fire(`nextQuestion`, this.currentQuestion);
-      this.currentAnswerTime = 0;
-    } else {
-      this.fire(`questionsOver`);
-    }
-  }
-
   getFastAnswersCount() {
     let fastAnswersCount = 0;
     this._answers.forEach((ans) => {
@@ -53,5 +42,16 @@ export default class GameModel extends Observer {
 
   calculateScore() {
     return countScore(this._answers, config.MAX_ATTEMPTS - this.mistakesCount - 1);
+  }
+
+  _nextQuestion() {
+    const nextQuestionIndex = this._answers.length;
+    if (nextQuestionIndex < this._questions.length) {
+      this.currentQuestion = this._questions[nextQuestionIndex];
+      this.fire(`nextQuestion`, this.currentQuestion);
+      this.currentAnswerTime = 0;
+    } else {
+      this.fire(`questionsOver`);
+    }
   }
 }

@@ -1,13 +1,13 @@
 import config from '../game-config';
 
-export const loadQuestions = (path = config.SERVER_URL) => {
-  return fetch(`${path}/questions`).then((res) => {
+export const loadQuestions = () => {
+  return fetch(`${config.SERVER_URL}/questions`).then((res) => {
     return res.json();
   });
 };
 
-export const loadResults = (path = config.SERVER_URL, name = config.USER_NAME) => {
-  return fetch(`${path}/stats/${name}`).then((res) => {
+export const loadResults = () => {
+  return fetch(`${config.SERVER_URL}/stats/${config.USER_NAME}`).then((res) => {
     if (res.status === 200) {
       return res.json();
     }
@@ -16,7 +16,7 @@ export const loadResults = (path = config.SERVER_URL, name = config.USER_NAME) =
   });
 };
 
-export const sendResult = (data, path = config.SERVER_URL, name = config.USER_NAME) => {
+export const sendResult = (data) => {
   const req = {
     body: JSON.stringify(data),
     headers: {
@@ -25,5 +25,5 @@ export const sendResult = (data, path = config.SERVER_URL, name = config.USER_NA
     method: `POST`
   };
 
-  return fetch(`${path}/stats/${name}`, req);
+  return fetch(`${config.SERVER_URL}/stats/${config.USER_NAME}`, req);
 };

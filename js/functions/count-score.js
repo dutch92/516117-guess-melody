@@ -9,11 +9,11 @@ export default (answers, attemptsLeft) => {
     if (answer.isCorrect) {
       if (answer.time < config.FAST_TIME) {
         return points + config.MAX_POINT;
-      } else {
-        return points + config.MIN_POINT;
       }
-    } else {
-      return points - config.PENAL_POINT;
+
+      return points + config.MIN_POINT;
     }
+
+    return points - config.PENAL_POINT;
   }, 0);
 };

@@ -1,3 +1,5 @@
+import config from './game-config';
+
 export const render = (element) => {
   const container = document.querySelector(`.app > .main`);
   container.innerHTML = ``;
@@ -43,8 +45,8 @@ export const getPluralForm = (count, forms) => {
 };
 
 export const getDashProps = (seconds) => {
-  const circleLength = Math.ceil(Math.PI * 370 * 2);
-  const ratio = seconds / 300;
+  const circleLength = Math.ceil(2 * Math.PI * config.CIRCLE_RADIUS);
+  const ratio = seconds / config.GAME_TIME;
   const progress = circleLength * (1 - ratio);
 
   return {

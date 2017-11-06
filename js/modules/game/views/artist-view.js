@@ -7,18 +7,6 @@ export default class ArtistView extends AbstractView {
     this._question = question;
   }
 
-  _getOptionHTML(option, i) {
-    return (
-      `<div class="main-answer-wrapper">
-      <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.title}"/>
-      <label class="main-answer" for="answer-${i}">
-        <img class="main-answer-preview" src="${option.image.url}" alt="${option.title}" width="134" height="134">
-        ${option.title}
-      </label>
-    </div>`
-    );
-  }
-
   get template() {
     return (
       `<div class="main-wrap">
@@ -39,6 +27,32 @@ export default class ArtistView extends AbstractView {
     );
   }
 
+  startPlay() {
+    const audioElement = this.element.querySelector(`.player audio`);
+    audioElement.play();
+  }
+
+  _checkAnswer(artistName) {
+    const answer = this._question.answers.find((ans) => ans.title === artistName);
+    if (answer) {
+      return answer.isCorrect;
+    }
+
+    return false;
+  }
+
+  _getOptionHTML(option, i) {
+    return (
+      `<div class="main-answer-wrapper">
+      <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${option.title}"/>
+      <label class="main-answer" for="answer-${i}">
+        <img class="main-answer-preview" src="${option.image.url}" alt="${option.title}" width="134" height="134">
+        ${option.title}
+      </label>
+    </div>`
+    );
+  }
+
   bind() {
     this.element.querySelector(`.player-control`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
@@ -47,10 +61,10 @@ export default class ArtistView extends AbstractView {
       btn.classList.toggle(`player-control--pause`);
       btn.classList.toggle(`player-control--play`);
       if (audioElement.paused) {
-        audioElement.play();
-      } else {
-        audioElement.pause();
+        return audioElement.play();
       }
+
+      audioElement.pause();
     });
 
     this.element.querySelectorAll(`.main-answer-r`).forEach((el) => {
@@ -62,21 +76,5 @@ export default class ArtistView extends AbstractView {
     });
   }
 
-  _checkAnswer(artistName) {
-    const answer = this._question.answers.find((ans) => ans.title === artistName);
-    if (answer) {
-      return answer.isCorrect;
-    } else {
-      return false;
-    }
-  }
-
   onAnswer() {}
-
-  startPlay() {
-    const audioElement = this.element.querySelector(`.player audio`);
-
-    this.loading = true;
-    audioElement.play();
-  }
 }
