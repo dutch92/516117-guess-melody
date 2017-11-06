@@ -60,13 +60,11 @@ export default class GenreView extends AbstractView {
         evt.target.classList.toggle(`player-control--pause`);
 
         const audio = evt.target.previousElementSibling;
-        if (audio) {
-          if (audio.paused) {
-            return audio.play();
-          }
-
-          return audio.pause();
+        if (audio.paused) {
+          return audio.play();
         }
+
+        return audio.pause();
       });
     });
 

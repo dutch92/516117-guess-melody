@@ -38,6 +38,8 @@ export default class GameModel extends Observer {
         fastAnswersCount++;
       }
     });
+
+    return fastAnswersCount;
   }
 
   calculateScore() {

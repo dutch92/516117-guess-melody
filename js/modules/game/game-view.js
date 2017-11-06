@@ -40,7 +40,7 @@ export default class GameView extends AbstractView {
     }
     this._gameContainerElement.appendChild(this._questionTypeView.element);
 
-    if (question.type == `artist`) {
+    if (question.type === `artist`) {
       this._questionTypeView.startPlay();
     }
   }

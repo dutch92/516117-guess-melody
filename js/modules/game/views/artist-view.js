@@ -64,7 +64,7 @@ export default class ArtistView extends AbstractView {
         return audioElement.play();
       }
 
-      audioElement.pause();
+      return audioElement.pause();
     });
 
     this.element.querySelectorAll(`.main-answer-r`).forEach((el) => {
