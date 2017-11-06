@@ -1,5 +1,7 @@
 import Observer from '../observer';
 import {loadQuestions} from '../../functions/server';
+import config from '../../game-config';
+import countScore from '../../functions/count-score';
 
 export default class GameModel extends Observer {
   constructor() {
@@ -10,7 +12,7 @@ export default class GameModel extends Observer {
   }
 
   init() {
-    this.answers = [];
+    this._answers = [];
 
     loadQuestions().then((questions) => {
       this._questions = questions;
@@ -19,7 +21,7 @@ export default class GameModel extends Observer {
   }
 
   pushAnswer(isCorrect) {
-    this.answers.push({isCorrect, time: this.currentAnswerTime});
+    this._answers.push({isCorrect, time: this.currentAnswerTime});
 
     if (!isCorrect) {
       this.mistakesCount++;
@@ -30,7 +32,7 @@ export default class GameModel extends Observer {
   }
 
   _nextQuestion() {
-    const nextQuestionIndex = this.answers.length;
+    const nextQuestionIndex = this._answers.length;
     if (nextQuestionIndex < this._questions.length) {
       this.currentQuestion = this._questions[nextQuestionIndex];
       this.fire(`nextQuestion`, this.currentQuestion);
@@ -38,5 +40,18 @@ export default class GameModel extends Observer {
     } else {
       this.fire(`questionsOver`);
     }
+  }
+
+  getFastAnswersCount() {
+    let fastAnswersCount = 0;
+    this._answers.forEach((ans) => {
+      if (ans.isCorrect && ans.time <= config.FAST_TIME) {
+        fastAnswersCount++;
+      }
+    });
+  }
+
+  calculateScore() {
+    return countScore(this._answers, config.MAX_ATTEMPTS - this.mistakesCount - 1);
   }
 }
