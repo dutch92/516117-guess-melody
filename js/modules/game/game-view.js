@@ -39,10 +39,6 @@ export default class GameView extends AbstractView {
         break;
     }
     this._gameContainerElement.appendChild(this._questionTypeView.element);
-
-    if (question.type === `artist`) {
-      this._questionTypeView.startPlay();
-    }
   }
 
   _getMistakesHTML(mistakesCount) {

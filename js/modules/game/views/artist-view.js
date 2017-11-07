@@ -13,7 +13,7 @@ export default class ArtistView extends AbstractView {
         <h2 class="title main-title">${this._question.question}</h2>
         <div class="player-wrapper">
           <div class="player">
-            <audio src="${this._question.src}"></audio>
+            <audio autoplay src="${this._question.src}"></audio>
             <button class="player-control player-control--pause"></button>
             <div class="player-track">
               <span class="player-status"></span>
@@ -25,11 +25,6 @@ export default class ArtistView extends AbstractView {
         </form>
       </div>`
     );
-  }
-
-  startPlay() {
-    const audioElement = this.element.querySelector(`.player audio`);
-    audioElement.play();
   }
 
   _checkAnswer(artistName) {

@@ -24,7 +24,7 @@ export default class GenreView extends AbstractView {
       `<div class="genre-answer">
       <div class="player-wrapper">
         <div class="player">
-          <audio src="${option.src}"></audio>
+          <audio preload="auto" src="${option.src}"></audio>
           <button class="player-control player-control--play"></button>
           <div class="player-track">
             <span class="player-status"></span>
