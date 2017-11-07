@@ -17,7 +17,7 @@ export default class WelcomeView extends AbstractView {
 
     return `<section class="main main--welcome">
       <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-      <button class="main-play" >Начать игру</button>
+      <button class="main-play" disabled>Начать игру</button>
       <h2 class="title main-title">Правила игры</h2>
       <p class="text main-text">Правила просты — за
         ${min} ${getPluralForm(min, Forms.minutes)}
@@ -27,6 +27,11 @@ export default class WelcomeView extends AbstractView {
         Удачи!
       </p>
     </section>`;
+  }
+
+  activatePlayButton() {
+    const button = this.element.querySelector(`.main-play`);
+    button.disabled = false;
   }
 
   bind() {

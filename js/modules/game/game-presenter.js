@@ -7,7 +7,7 @@ import config from '../../game-config';
 import {ResultStatus} from '../result/helpers';
 
 class GamePresenter {
-  init() {
+  init(data) {
     this.model = new GameModel();
     this.view = new GameView();
     this.timer = getTimer(config.GAME_TIME);
@@ -16,14 +16,16 @@ class GamePresenter {
 
     this._createHandlers();
 
-    this.model.init();
+    this.model.init(data);
 
-    this._startGameTimer();
+    this._startTimer();
   }
 
   _createHandlers() {
     this.model.on(`makeMistake`, (mistakesCount) => {
       if (mistakesCount >= config.MAX_ATTEMPTS) {
+        this._stopTimer();
+
         return App.showResult({status: ResultStatus.OVER_ATTEMPTS});
       }
       return this.view.updateMistakes(mistakesCount);
@@ -34,11 +36,13 @@ class GamePresenter {
     });
 
     this.model.on(`questionsOver`, () => {
+      this._stopTimer();
+
       App.showResult({
         status: ResultStatus.WIN,
         score: this.model.calculateScore(),
         elapsedTime: config.GAME_TIME - this.timer.value,
-        mistakesCount: this.model.mistakesCount,
+        mistakesCount: this.model.getMistakesCount(),
         fastAnswersCount: this.model.getFastAnswersCount()
       });
     });
@@ -48,17 +52,27 @@ class GamePresenter {
     };
   }
 
-  _startGameTimer() {
+  _startTimer() {
     if (!this.interval) {
+      const everySecond = 1000;
+
       this.interval = setInterval(() => {
         if (this.timer.tick()) {
-          this.model.currentAnswerTime++;
+          this.model.tickCurrentAnswerTime();
           this.view.updateTimer(this.timer.value);
         } else {
-          clearInterval(this.interval);
+          this._stopTimer();
+
           App.showResult({status: ResultStatus.OVER_TIME});
         }
-      }, 1000);
+      }, everySecond);
+    }
+  }
+
+  _stopTimer() {
+    if (this.interval) {
+      clearInterval(this.interval);
+      delete this.interval;
     }
   }
 }

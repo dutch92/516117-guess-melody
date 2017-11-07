@@ -1,7 +1,7 @@
 const LEVELS_COUNT = 10;
 const MAX_ATTEMPTS = 4;
 const MIN_POINT = 1;
-const MAX_POINT = 1;
+const MAX_POINT = 2;
 const PENAL_POINT = 2;
 
 const GameConfig = {
@@ -16,7 +16,7 @@ const GameConfig = {
   MAX_SCORE: LEVELS_COUNT * MAX_POINT,
   MIN_SCORE: (LEVELS_COUNT - (MAX_ATTEMPTS - 1) * PENAL_POINT) * MIN_POINT,
   SERVER_URL: `https://es.dump.academy/guess-melody`,
-  USER_NAME: `AlexanderSmirnov_id516117`,
+  USER_NAME: `516117`,
   CIRCLE_RADIUS: 370
 };
 

@@ -1,9 +1,7 @@
 import config from '../game-config';
 
 export const loadQuestions = () => {
-  return fetch(`${config.SERVER_URL}/questions`).then((res) => {
-    return res.json();
-  });
+  return fetch(`${config.SERVER_URL}/questions`).then((res) => res.json());
 };
 
 export const loadResults = () => {

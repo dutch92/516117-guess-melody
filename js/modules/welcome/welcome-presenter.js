@@ -13,6 +13,9 @@ class WelcomePresenter {
       App.showGame();
     };
   }
+  dataReady() {
+    this.view.activatePlayButton();
+  }
 }
 
 export default new WelcomePresenter();

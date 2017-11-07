@@ -27,6 +27,7 @@
   text-indent: -100em;
   transform-origin: center;
   width: 0;
+  transition: 1s;
 }
 
 .main-play:hover {
@@ -35,4 +36,8 @@
 
 .main-play:active {
   transform: scale(1.04);
+}
+
+.main-play:disabled {
+  border-left-color: #d8d8d8;
 }

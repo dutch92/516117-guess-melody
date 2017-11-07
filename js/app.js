@@ -1,61 +1,27 @@
-import welcome from './modules/welcome/welcome-presenter';
-import game from './modules/game/game-presenter';
-import result from './modules/result/result-presenter';
-
-const Router = {
-  WELCOME: ``,
-  GAME: `game`,
-  RESULT: `result`
-};
-
-const routes = {
-  [Router.WELCOME]: welcome,
-  [Router.GAME]: game,
-  [Router.RESULT]: result
-};
-
-const marshal = (state) => {
-  return JSON.stringify(state);
-};
-
-const unmarshal = (data) => {
-  try {
-    return JSON.parse(data);
-  } catch (err) {
-    return {};
-  }
-};
+import WelcomePresenter from './modules/welcome/welcome-presenter';
+import GamePresenter from './modules/game/game-presenter';
+import ResultPresenter from './modules/result/result-presenter';
+import {loadQuestions} from './functions/server';
 
 export default class App {
-  static init() {
-    const hashChangeHandler = () => {
-      const hashValue = location.hash.replace(`#`, ``);
-      const [id, data] = hashValue.split(`?`);
-
-      this.changeRoute(id, data);
-    };
-    window.onhashchange = hashChangeHandler;
-    hashChangeHandler();
+  static init(data) {
+    this._data = data;
   }
 
   static showWelcome() {
-    location.hash = Router.WELCOME;
+    WelcomePresenter.init();
   }
 
   static showGame() {
-    location.hash = Router.GAME;
+    GamePresenter.init(this._data);
   }
 
-  static showResult(gameResult) {
-    location.hash = `${Router.RESULT}?${marshal(gameResult)}`;
-  }
-
-  static changeRoute(id, data) {
-    const presenter = routes[id];
-    if (presenter) {
-      presenter.init(unmarshal(data));
-    }
+  static showResult(result) {
+    ResultPresenter.init(result);
   }
 }
 
-App.init();
+loadQuestions().then((data) => {
+  App.init(data);
+  WelcomePresenter.dataReady();
+});
